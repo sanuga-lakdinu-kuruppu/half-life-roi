@@ -44,12 +44,12 @@ const materials = [
     thickness: 0.1, // mm
     density: 0.8, // g/cm³
     description: 'Thin paper sheets for packaging',
-    suitableBeta: ['tritium', 'pm147']
+    suitableBeta: ['tritium']
   },
   { 
     id: 'plastic', 
     name: 'Plastic Film', 
-    icon: '🎞️', 
+    icon: '🥤', 
     thickness: 0.2, // mm
     density: 0.9, // g/cm³
     description: 'Thin plastic film for food packaging',
@@ -121,6 +121,7 @@ export default function Industry() {
   const [correctCount, setCorrectCount] = useState(0);
   const [transmissionResult, setTransmissionResult] = useState(null);
   const [lastResult, setLastResult] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const startGame = () => {
     setGameActive(true);
@@ -174,19 +175,24 @@ export default function Industry() {
       setScore(prev => Math.max(0, prev - 5));
     }
 
+    // Show modal
+    setShowModal(true);
+
     // Check if game is complete (6 materials)
     if (analyzedCount + 1 >= 6) {
       setTimeout(() => {
+        setShowModal(false);
         setGameActive(false);
         setCompleted(true);
-      }, 5000);
+      }, 3000);
     } else {
       setTimeout(() => {
+        setShowModal(false);
         generateNewMaterial();
         setSelectedBeta(null);
         setTransmissionResult(null);
         setLastResult(null);
-      }, 5000);
+      }, 3000);
     }
   };
 
@@ -198,6 +204,7 @@ export default function Industry() {
     setSelectedBeta(null);
     setTransmissionResult(null);
     setLastResult(null);
+    setShowModal(false);
     setCompleted(false);
     setGameActive(false);
     setShowInstructions(false);
@@ -316,32 +323,67 @@ export default function Industry() {
         <div className="text-purple-400 font-bold text-xl">Correct: {correctCount}</div>
       </div>
 
-      {/* Result Feedback */}
-      {lastResult && (
-        <div className={`mb-8 p-6 rounded-2xl backdrop-blur-md border ${
-          lastResult.correct 
-            ? 'bg-gradient-to-br from-green-900/50 to-emerald-900/50 border-green-600' 
-            : 'bg-gradient-to-br from-red-900/50 to-pink-900/50 border-red-600'
-        }`}>
-          <div className="text-center">
-            <div className="text-4xl mb-4">{lastResult.correct ? '✅' : '❌'}</div>
-            <h3 className="text-xl font-bold text-white mb-2">
-              {lastResult.correct ? 'Correct!' : 'Incorrect!'}
-            </h3>
-            <p className="text-gray-300 mb-2">
-              Material: <strong>{lastResult.material.name}</strong> ({lastResult.material.thickness}mm)
-            </p>
-            <p className="text-gray-300 mb-2">
-              Beta Source: <strong>{lastResult.beta.name}</strong> ({lastResult.beta.energy} MeV)
-            </p>
-            <p className="text-gray-300 mb-2">
-              Transmission: <strong>{lastResult.transmission.toFixed(2)}%</strong>
-            </p>
-            <div className="text-sm text-gray-400 mt-4 p-3 bg-gray-900/50 rounded-lg">
-              <strong>Scientific Explanation:</strong> {lastResult.correct 
-                ? `${lastResult.beta.name} with ${lastResult.beta.energy} MeV energy is suitable for ${lastResult.material.name} (${lastResult.material.thickness}mm). The ${lastResult.transmission.toFixed(1)}% transmission indicates adequate penetration for accurate thickness measurement.`
-                : `${lastResult.beta.name} with ${lastResult.beta.energy} MeV energy is not suitable for ${lastResult.material.name} (${lastResult.material.thickness}mm). The ${lastResult.transmission.toFixed(1)}% transmission is too ${lastResult.transmission > 50 ? 'high' : 'low'} for accurate measurement.`
-              }
+      {/* Result Modal */}
+      {showModal && lastResult && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className={`max-w-lg w-full bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-md border-2 rounded-3xl p-8 shadow-2xl transform transition-all duration-500 ${
+            lastResult.correct ? 'border-green-500/50 shadow-green-500/25' : 'border-red-500/50 shadow-red-500/25'
+          }`}>
+            <div className="text-center">
+
+              {/* Result Title */}
+              <h3 className={`text-3xl font-bold mb-4 ${
+                lastResult.correct ? 'text-green-400' : 'text-red-400'
+              }`}>
+                {lastResult.correct ? 'Perfect Measurement!' : 'Measurement Error!'}
+              </h3>
+              
+              {/* Material and Beta Info */}
+              <div className="bg-gray-800/50 rounded-xl p-4 mb-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="text-3xl mb-2">{lastResult.material.icon}</div>
+                    <h4 className="text-lg font-bold text-white mb-1">{lastResult.material.name}</h4>
+                    <p className="text-gray-300 text-sm">{lastResult.material.thickness}mm thickness</p>
+                  </div>
+                  <div>
+                    <div className="text-3xl mb-2">{lastResult.beta.symbol}</div>
+                    <h4 className="text-lg font-bold text-white mb-1">{lastResult.beta.name}</h4>
+                    <p className="text-gray-300 text-sm">{lastResult.beta.energy} MeV</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Transmission Results */}
+              <div className="bg-gray-800/30 rounded-lg p-4 mb-6">
+                <div className="text-sm text-gray-400 mb-2">Transmission Result</div>
+                <div className={`text-2xl font-bold ${
+                  lastResult.transmission > 50 ? 'text-green-400' : 'text-red-400'
+                }`}>
+                  {lastResult.transmission.toFixed(1)}%
+                </div>
+                <div className="text-xs text-gray-400 mt-1">
+                  {lastResult.transmission > 50 ? 'Adequate penetration' : 'Insufficient penetration'}
+                </div>
+              </div>
+              
+              {/* Scientific Explanation */}
+              <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 border border-blue-500/30 rounded-xl p-4">
+                <div className="text-sm font-bold text-blue-400 mb-2">🔬 Scientific Explanation</div>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {lastResult.correct 
+                    ? `${lastResult.beta.name} with ${lastResult.beta.energy} MeV energy is suitable for ${lastResult.material.name} (${lastResult.material.thickness}mm). The ${lastResult.transmission.toFixed(1)}% transmission indicates adequate penetration for accurate thickness measurement.`
+                    : `${lastResult.beta.name} with ${lastResult.beta.energy} MeV energy is not suitable for ${lastResult.material.name} (${lastResult.material.thickness}mm). The ${lastResult.transmission.toFixed(1)}% transmission is too ${lastResult.transmission > 50 ? 'high' : 'low'} for accurate measurement.`
+                  }
+                </p>
+              </div>
+              
+              {/* Score Update */}
+              <div className={`mt-6 text-lg font-bold ${
+                lastResult.correct ? 'text-green-400' : 'text-red-400'
+              }`}>
+                {lastResult.correct ? '+20 points' : '-5 points'}
+              </div>
             </div>
           </div>
         </div>
@@ -375,11 +417,11 @@ export default function Industry() {
                 <div className="text-sm text-gray-400 mb-2">
                   Density: {currentMaterial.density} g/cm³
                 </div>
-                <div className="text-xs text-gray-500 mt-4 p-3 bg-gray-900/50 rounded-lg">
+                {/* <div className="text-xs text-gray-500 mt-4 p-3 bg-gray-900/50 rounded-lg">
                   <strong>Suitable Beta Sources:</strong> {currentMaterial.suitableBeta.map(beta => 
                     betaParticles.find(b => b.id === beta)?.name
                   ).join(', ')}
-                </div>
+                </div> */}
               </div>
             )}
           </div>

@@ -56,26 +56,26 @@ const artifacts = [
     explanation: 'Natural decay pattern consistent with 2,000-year-old organic material'
   },
   { 
-    id: 'vase', 
-    name: 'Greek Vase', 
-    icon: '🏺', 
+    id: 'wood', 
+    name: 'Ancient Wood', 
+    icon: '🪵', 
     age: 2500, 
-    description: 'A ceramic vase from classical Greece',
+    description: 'Wooden artifact from classical Greece',
     authentic: true,
     explanation: 'Exponential decay curve matches expected C-14 half-life of 5,730 years'
   },
   { 
-    id: 'painting', 
-    name: 'Renaissance Painting', 
+    id: 'canvas', 
+    name: 'Renaissance Canvas', 
     icon: '🎨', 
     age: 500, 
-    description: 'An oil painting from the Renaissance period',
+    description: 'Canvas from the Renaissance period',
     authentic: true,
-    explanation: 'Smooth decay pattern indicates authentic 500-year-old canvas'
+    explanation: 'Smooth decay pattern indicates authentic 500-year-old organic material'
   },
   { 
     id: 'fake_scroll', 
-    name: 'Suspicious Scroll', 
+    name: 'Ancient Scroll', 
     icon: '📜', 
     age: 2000, 
     description: 'A papyrus scroll with questionable dating',
@@ -83,20 +83,20 @@ const artifacts = [
     explanation: 'Irregular decay pattern suggests artificial aging or contamination'
   },
   { 
-    id: 'fake_vase', 
-    name: 'Modern Vase', 
-    icon: '🏺', 
+    id: 'fake_wood', 
+    name: 'Ancient Wood', 
+    icon: '🪵', 
     age: 2500, 
-    description: 'A vase claiming to be from ancient Greece',
+    description: 'Wooden artifact from ancient Greece',
     authentic: false,
-    explanation: 'Anomalous decay curve indicates modern ceramic with fake aging'
+    explanation: 'Anomalous decay curve indicates modern wood with fake aging'
   },
   { 
-    id: 'fake_painting', 
-    name: 'Reproduction', 
+    id: 'fake_canvas', 
+    name: 'Ancient Canvas', 
     icon: '🎨', 
     age: 500, 
-    description: 'A painting claiming to be from the Renaissance',
+    description: 'Canvas from the Renaissance',
     authentic: false,
     explanation: 'Inconsistent decay pattern reveals modern canvas with artificial aging'
   },
@@ -112,6 +112,7 @@ export default function Art() {
   const [correctCount, setCorrectCount] = useState(0);
   const [decayData, setDecayData] = useState([]);
   const [lastResult, setLastResult] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const startGame = () => {
     setGameActive(true);
@@ -151,18 +152,23 @@ export default function Art() {
       setScore(prev => Math.max(0, prev - 5));
     }
 
+    // Show modal
+    setShowModal(true);
+
     // Check if game is complete (6 artifacts)
     if (analyzedCount + 1 >= 6) {
       setTimeout(() => {
+        setShowModal(false);
         setGameActive(false);
         setCompleted(true);
-      }, 2000);
+      }, 3000);
     } else {
-      // Generate next artifact after showing result
+      // Generate next artifact after showing modal
       setTimeout(() => {
+        setShowModal(false);
         setLastResult(null);
         generateNewArtifact();
-      }, 2000);
+      }, 3000);
     }
   };
 
@@ -173,6 +179,7 @@ export default function Art() {
     setCurrentArtifact(null);
     setDecayData([]);
     setLastResult(null);
+    setShowModal(false);
     setCompleted(false);
     setGameActive(false);
     setShowInstructions(false);
@@ -193,7 +200,7 @@ export default function Art() {
             <ul className="space-y-3 text-gray-300 text-lg">
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                Carbon-14 has a half-life of 5,730 years (scientifically accurate)
+                Carbon-14 has a half-life of 5,730 years 
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
@@ -291,26 +298,68 @@ export default function Art() {
         <div className="text-purple-400 font-bold text-xl">Correct: {correctCount}</div>
       </div>
 
-      {/* Result Feedback */}
-      {lastResult && (
-        <div className={`mb-8 p-6 rounded-2xl backdrop-blur-md border ${
-          lastResult.correct 
-            ? 'bg-gradient-to-br from-green-900/50 to-emerald-900/50 border-green-600' 
-            : 'bg-gradient-to-br from-red-900/50 to-pink-900/50 border-red-600'
-        }`}>
-          <div className="text-center">
-            <div className="text-4xl mb-4">{lastResult.correct ? '✅' : '❌'}</div>
-            <h3 className="text-xl font-bold text-white mb-2">
-              {lastResult.correct ? 'Correct!' : 'Incorrect!'}
-            </h3>
-            <p className="text-gray-300 mb-2">
-              You chose: <strong>{lastResult.userChoice ? 'Authentic' : 'Fake'}</strong>
-            </p>
-            <p className="text-gray-300 mb-2">
-              Actual: <strong>{lastResult.artifact.authentic ? 'Authentic' : 'Fake'}</strong>
-            </p>
-            <div className="text-sm text-gray-400 mt-4 p-3 bg-gray-900/50 rounded-lg">
-              <strong>Scientific Explanation:</strong> {lastResult.artifact.explanation}
+      {/* Result Modal */}
+      {showModal && lastResult && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className={`max-w-lg w-full bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-md border-2 rounded-3xl p-8 shadow-2xl transform transition-all duration-500 ${
+            lastResult.correct ? 'border-green-500/50 shadow-green-500/25' : 'border-red-500/50 shadow-red-500/25'
+          }`}>
+            <div className="text-center">
+              {/* Animated Icon
+              <div className={`text-6xl mb-6 animate-bounce ${
+                lastResult.correct ? 'text-green-400' : 'text-red-400'
+              }`}>
+                {lastResult.correct ? '🎉' : '💥'}
+              </div> */}
+              
+              {/* Result Title */}
+              <h3 className={`text-3xl font-bold mb-4 ${
+                lastResult.correct ? 'text-green-400' : 'text-red-400'
+              }`}>
+                {lastResult.correct ? 'Excellent Analysis!' : 'Analysis Error!'}
+              </h3>
+              
+              {/* Artifact Info */}
+              <div className="bg-gray-800/50 rounded-xl p-4 mb-6">
+                <div className="text-4xl mb-2">{lastResult.artifact.icon}</div>
+                <h4 className="text-xl font-bold text-white mb-2">{lastResult.artifact.name}</h4>
+                <p className="text-gray-300 text-sm">{lastResult.artifact.description}</p>
+              </div>
+              
+              {/* Analysis Results */}
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-800/30 rounded-lg p-3">
+                  <div className="text-sm text-gray-400 mb-1">Your Analysis</div>
+                  <div className={`font-bold ${
+                    lastResult.userChoice ? 'text-green-400' : 'text-red-400'
+                  }`}>
+                    {lastResult.userChoice ? '✓ Authentic' : '✗ Fake'}
+                  </div>
+                </div>
+                <div className="bg-gray-800/30 rounded-lg p-3">
+                  <div className="text-sm text-gray-400 mb-1">Actual Status</div>
+                  <div className={`font-bold ${
+                    lastResult.artifact.authentic ? 'text-green-400' : 'text-red-400'
+                  }`}>
+                    {lastResult.artifact.authentic ? '✓ Authentic' : '✗ Fake'}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Scientific Explanation */}
+              <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 border border-blue-500/30 rounded-xl p-4">
+                <div className="text-sm font-bold text-blue-400 mb-2">🔬 Scientific Explanation</div>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {lastResult.artifact.explanation}
+                </p>
+              </div>
+              
+              {/* Score Update */}
+              <div className={`mt-6 text-lg font-bold ${
+                lastResult.correct ? 'text-green-400' : 'text-red-400'
+              }`}>
+                {lastResult.correct ? '+20 points' : '-5 points'}
+              </div>
             </div>
           </div>
         </div>
@@ -377,14 +426,14 @@ export default function Art() {
             <div className="flex gap-4 justify-center">
               <button
                 onClick={() => handleAnalysis(true)}
-                disabled={lastResult !== null}
+                disabled={showModal}
                 className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105"
               >
                 ✓ Authentic
               </button>
               <button
                 onClick={() => handleAnalysis(false)}
-                disabled={lastResult !== null}
+                disabled={showModal}
                 className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105"
               >
                 ✗ Fake

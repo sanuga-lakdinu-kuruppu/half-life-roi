@@ -98,7 +98,7 @@ export default function Medicine() {
           <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 backdrop-blur-md border border-gray-600 rounded-2xl p-8 mb-8">
             <h3 className="text-2xl font-bold text-white mb-4">How PET Scans Work</h3>
             <p className="text-gray-300 mb-6 text-lg leading-relaxed">
-              Positron Emission Tomography (PET) scans use radioactive isotopes to create detailed images of your body's functions.
+              Positron Emission Tomography (PET) scans use radioactive isotopes to create detailed images of your body&apos;s functions.
             </p>
             <ul className="space-y-3 text-gray-300 text-lg">
               <li className="flex items-center">
@@ -144,7 +144,7 @@ export default function Medicine() {
         </h2>
         <div className="text-left max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-green-900/50 to-emerald-900/50 backdrop-blur-md border border-green-600 rounded-2xl p-8 mb-8">
-            <p className="text-xl text-gray-300 mb-4">Excellent work! You've successfully assembled a complete PET scan system.</p>
+            <p className="text-xl text-gray-300 mb-4">Excellent work! You&apos;ve successfully assembled a complete PET scan system.</p>
             <p className="text-2xl mb-4">Final Score: <strong className="text-green-400">{score}</strong> points</p>
             <p className="text-lg text-gray-400">Wrong attempts: <strong className="text-red-400">{wrongCount}</strong></p>
           </div>

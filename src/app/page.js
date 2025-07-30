@@ -325,6 +325,9 @@ export default function Home() {
               <a href="#quiz" className="px-4 py-1 rounded-full transition-colors duration-200 hover:bg-white/10 hover:text-white cursor-pointer block">Quiz</a>
             </li>
             <li>
+              <a href="#isotope-game" className="px-4 py-1 rounded-full transition-colors duration-200 hover:bg-white/10 hover:text-white cursor-pointer block">Isotope Game</a>
+            </li>
+            <li>
               <a href="#calculator" className="px-4 py-1 rounded-full transition-colors duration-200 hover:bg-white/10 hover:text-white cursor-pointer block">Calculator</a>
             </li>
             <li>
@@ -472,6 +475,70 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">Environment</h3>
                   <p className="text-gray-400 text-sm">Learn about our planet and sustainability</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Isotope Game Section */}
+        <section id="isotope-game" className="w-full min-h-screen flex flex-col items-center justify-center scroll-mt-32">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent mb-4">
+              Nuclear Isotopes
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Explore the fascinating world of nuclear isotopes through our interactive learning game
+            </p>
+            <div className="flex justify-center mt-4">
+              <span className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                Interactive
+              </span>
+              <span className="bg-gradient-to-r from-pink-500 to-red-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
+                Educational
+              </span>
+              <span className="bg-gradient-to-r from-red-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
+                Nuclear Physics
+              </span>
+            </div>
+          </div>
+          
+          {/* Game Navigation Card */}
+          <div className="w-full max-w-4xl px-4">
+            <div className="group">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-8 hover:border-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-4xl">⚛️</span>
+                  </div>
+                  <h3 className="text-3xl font-bold text-white mb-4">Nuclear Isotopes: Beyond Energy</h3>
+                  <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
+                    Discover how isotopes are used in medicine, agriculture, art authentication, industry, and research. 
+                    Learn about half-life, radioactive decay, and real-world applications through interactive scenarios.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-purple-500/20 border border-purple-500/30 rounded-lg p-4">
+                      <div className="text-2xl mb-2">🏥</div>
+                      <div className="text-purple-300 font-semibold">Medicine</div>
+                      <div className="text-purple-400 text-sm">Medical imaging & treatment</div>
+                    </div>
+                    <div className="bg-pink-500/20 border border-pink-500/30 rounded-lg p-4">
+                      <div className="text-2xl mb-2">🌾</div>
+                      <div className="text-pink-300 font-semibold">Agriculture</div>
+                      <div className="text-pink-400 text-sm">Crop improvement & pest control</div>
+                    </div>
+                    <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
+                      <div className="text-2xl mb-2">🏭</div>
+                      <div className="text-red-300 font-semibold">Industry</div>
+                      <div className="text-red-400 text-sm">Quality control & testing</div>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => window.location.href = '/isotope-game'}
+                    className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all text-lg hover-lift animate-pulse-glow"
+                  >
+                    Start Learning Game
+                  </button>
                 </div>
               </div>
             </div>
@@ -747,6 +814,12 @@ export default function Home() {
                   <a href="#quiz" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
                     <span className="w-1 h-1 bg-green-500 rounded-full"></span>
                     Quiz
+                  </a>
+                </li>
+                <li>
+                  <a href="#isotope-game" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                    Isotope Game
                   </a>
                 </li>
                 <li>

@@ -2,14 +2,16 @@
 import { useState } from 'react';
 import Medicine from './scenes/Medicine';
 import Agriculture from './scenes/Agriculture';
+import Art from './scenes/Art';
+import Industry from './scenes/Industry';
+import Research from './scenes/Research';
 
 const scenes = [
   { key: 'medicine', label: 'Medicine', component: Medicine },
   { key: 'agriculture', label: 'Agriculture', component: Agriculture },
-  // Placeholders for other scenes
-  { key: 'art', label: 'Art Authentication', component: () => <div>Coming soon: Art Authentication</div> },
-  { key: 'industry', label: 'Industry', component: () => <div>Coming soon: Industry</div> },
-  { key: 'research', label: 'Research', component: () => <div>Coming soon: Research</div> },
+  { key: 'art', label: 'Art Authentication', component: Art },
+  { key: 'industry', label: 'Industry', component: Industry },
+  { key: 'research', label: 'Research', component: Research },
 ];
 
 export default function Game() {

@@ -294,7 +294,161 @@ function MindMapFlow() {
   );
 }
 
+// Chatbot Component
+function ChatbotModal({ isOpen, onClose }) {
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      type: 'bot',
+      content: 'Hello! I\'m your Half Life ROI assistant. How can I help you today?',
+      timestamp: new Date()
+    }
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
+
+  const handleSendMessage = () => {
+    if (!inputMessage.trim()) return;
+
+    const userMessage = {
+      id: messages.length + 1,
+      type: 'user',
+      content: inputMessage,
+      timestamp: new Date()
+    };
+
+    setMessages([...messages, userMessage]);
+    setInputMessage('');
+
+    // Simulate bot response
+    setTimeout(() => {
+      const botResponse = {
+        id: messages.length + 2,
+        type: 'bot',
+        content: getBotResponse(inputMessage),
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, botResponse]);
+    }, 1000);
+  };
+
+  const getBotResponse = (message) => {
+    const lowerMessage = message.toLowerCase();
+    
+    if (lowerMessage.includes('quiz') || lowerMessage.includes('test')) {
+      return 'We have interactive quizzes in various domains like Space Technology, Agriculture, Medical, and more! You can find them in the Quiz section.';
+    } else if (lowerMessage.includes('calculator') || lowerMessage.includes('calculate')) {
+      return 'Our calculator section provides tools for ROI analysis and half-life calculations. Check it out!';
+    } else if (lowerMessage.includes('isotope') || lowerMessage.includes('nuclear')) {
+      return 'Explore our Isotope Game to learn about nuclear physics and real-world applications in medicine, agriculture, and industry!';
+    } else if (lowerMessage.includes('team') || lowerMessage.includes('about')) {
+      return 'Our team consists of Computer Scientists, Economists, and a Nuclear Scientist working together on this project. Check out the About Us section!';
+    } else if (lowerMessage.includes('help') || lowerMessage.includes('support')) {
+      return 'I can help you navigate the site, explain features, or answer questions about Half Life ROI. What would you like to know?';
+    } else {
+      return 'That\'s interesting! I can help you explore our features like quizzes, calculators, isotope games, and more. What would you like to learn about?';
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
+      
+      {/* Modal */}
+      <div className="relative w-full max-w-md mx-4 bg-gray-900/95 backdrop-blur-md border border-gray-700 rounded-2xl shadow-2xl animate-zoom-in">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-lg">🤖</span>
+            </div>
+            <div>
+              <h3 className="text-white font-semibold">Half Life ROI Assistant</h3>
+              <p className="text-gray-400 text-sm">AI-powered help</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div className="h-96 overflow-y-auto p-6 space-y-4">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div
+                className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
+                  message.type === 'user'
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+                    : 'bg-gray-800/80 text-gray-200 border border-gray-700'
+                }`}
+              >
+                <p className="text-sm">{message.content}</p>
+                <p className={`text-xs mt-1 ${
+                  message.type === 'user' ? 'text-blue-100' : 'text-gray-500'
+                }`}>
+                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Input */}
+        <div className="p-6 border-t border-gray-700">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Type your message..."
+              className="flex-1 px-4 py-3 bg-gray-800/80 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+            />
+            <button
+              onClick={handleSendMessage}
+              disabled={!inputMessage.trim()}
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover-lift"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Floating Chat Button
+function FloatingChatButton({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-110 z-40 animate-pulse-glow"
+    >
+      <span className="text-2xl">💬</span>
+    </button>
+  );
+}
+
 export default function Home() {
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-black flex flex-col items-center p-4 relative overflow-hidden" style={{ scrollBehavior: 'smooth' }}>
       {/* Animated Background */}
@@ -884,6 +1038,11 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Chatbot Modal */}
+      <ChatbotModal isOpen={isChatModalOpen} onClose={() => setIsChatModalOpen(false)} />
+      {/* Floating Chat Button */}
+      <FloatingChatButton onClick={() => setIsChatModalOpen(true)} />
     </div>
   );
 }

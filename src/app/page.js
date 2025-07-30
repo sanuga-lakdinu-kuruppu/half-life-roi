@@ -5,247 +5,787 @@ import ReactFlow, { Background, Controls, MiniMap } from "reactflow";
 import "reactflow/dist/style.css";
 
 const nodeDetails = {
-  root: {
-    title: "Half Life ROI",
-    description: "The central hub for all features: Quiz, Calculator, About Us, and Mindmap."
+  main: {
+    title: "Non-energy appliance of nuclear technology",
+    description: "The central hub exploring nuclear technology applications beyond energy generation, focusing on various practical uses in different fields."
   },
-  quiz: {
-    title: "Quiz",
-    description: "Test your knowledge with interactive quizzes including MCQ and True/False."
+  basicKnowledge: {
+    title: "Basic Knowledge of Nuclear",
+    description: "Fundamental understanding of nuclear science including definitions, reactions, isotopes, and production methods."
   },
-  calculator: {
-    title: "Calculator",
-    description: "Calculate ROI and half-life values with our advanced calculators."
+  overviewNuclearMedicine: {
+    title: "Overview of Nuclear Medicine",
+    description: "Nuclear medicine is a medical field using radioactive isotopes, like Technetium-99m (Tc-99m), for diagnosing and treating diseases. It involves injecting small amounts of radioactive materials, detected via imaging to assess organ function and detect issues early, unlike X-rays which focus on anatomy. Produced in nuclear reactors, it aids in detecting cancer, heart disease, and thyroid disorders, offering targeted therapy. Economically, it improves outcomes and cuts long-term costs, though it needs significant infrastructure investment."
   },
-  aboutus: {
-    title: "About Us",
-    description: "Learn more about the team and the mission behind Half Life ROI."
+  nuclearAgriculture: {
+    title: "Nuclear Applications in Agriculture",
+    description: "Nuclear applications in agriculture utilize radioactive isotopes and radiation techniques to enhance crop production, improve resource utilization, and ensure food safety. These methods, developed through nuclear technology, help address challenges like food security and sustainable farming by leveraging radiation to modify plants and trace nutrient uptake."
   },
-  mindmap: {
-    title: "Mindmap",
-    description: "Visualize the structure and features of the platform in an interactive way."
+  industrialRadiography: {
+    title: "Industrial Radiography",
+    description: "A key Non-Destructive Testing (NDT) method, used in managing structural integrity and detection. It ensures safety and reliability by inspecting materials without causing damage."
   },
-  "quiz-mcq": {
-    title: "MCQ Quiz",
-    description: "Multiple choice questions to challenge your understanding."
+  gauging: {
+    title: "Gauging in Nuclear Technology",
+    description: "Uses radioactive isotopes (often gamma emitters like Cobalt-60 or Caesium-137) to measure thickness, density, level, or composition of materials."
   },
-  "quiz-tf": {
-    title: "True/False Quiz",
-    description: "Quick true/false questions for rapid learning."
+  nuclearResearch: {
+    title: "Nuclear Research",
+    description: "Using radioactive isotopes and nuclear techniques to advance scientific knowledge in fields like archaeology, geology, and environmental sciences. These isotopes, produced in reactors or accelerators, act as tracers to study natural processes and historical events, offering long-term societal benefits as a key non-energy application."
   },
-  "calc-roi": {
-    title: "ROI Calculator",
-    description: "Compute your Return on Investment easily."
+  // Basic Knowledge sub-nodes
+  definition: {
+    title: "Definition",
+    description: "Nuclear technology involves the use of atomic nuclei to generate energy or other applications. It relies on processes such as fission (splitting atoms) and fusion (combining atoms), depending on the intended use. This serves as the basis for understanding that nuclear technology is not limited to electricity generation but encompasses various fields."
   },
-  "calc-half": {
-    title: "Half-life Calculator",
-    description: "Calculate half-life for various scenarios."
+  typesOfReactions: {
+    title: "Types of Reactions",
+    description: "Overview of nuclear fission and fusion reactions and their applications."
   },
-  "about-team": {
-    title: "Team",
-    description: "Meet the creative minds behind this project."
+  fission: {
+    title: "Fission",
+    description: "This process occurs when a heavy atom (such as uranium-235) splits into smaller particles, releasing energy. It is the primary mechanism in nuclear power plants."
   },
-  "mindmap-overview": {
-    title: "Mindmap Overview",
-    description: "A high-level overview of the mindmap structure."
+  fusion: {
+    title: "Fusion",
+    description: "This process happens when two light atoms (such as hydrogen) combine to form a heavier atom, releasing significant energy (used in the sun and being researched for future energy). Both reactions involve the nucleus, but fission is currently more prevalent in practice."
   },
+  isotopes: {
+    title: "Isotopes",
+    description: "Isotopes are variants of a chemical element with the same number of protons but different numbers of neutrons, resulting in different masses (e.g., Carbon-12 and Carbon-14). In nuclear technology, isotopes (such as I-131 and Co-60) are produced in reactors and play a crucial role in fields like medicine and industry, beyond just electricity generation."
+  },
+  production: {
+    title: "Production",
+    description: "Isotopes are generated in nuclear reactors or particle accelerators. This process occurs when neutrons collide with atoms, creating new isotopes. This highlights the potential of nuclear technology to extend beyond electricity, particularly in isotope production."
+  },
+  // Nuclear Medicine sub-nodes
+  diagnosticApplications: {
+    title: "Diagnostic Applications",
+    description: "Nuclear diagnostic applications in medical imaging and disease detection using radioactive tracers and imaging techniques."
+  },
+  therapeuticApplications: {
+    title: "Therapeutic Applications",
+    description: "Nuclear therapeutic applications using radioactive isotopes for cancer treatment and other medical therapies."
+  },
+  fluorine18: {
+    title: "Fluorine-18 (F-18)",
+    description: "Fluorine-18 (F-18) is a widely used radioactive isotope in nuclear reactions, particularly for positron emission tomography (PET) imaging. It emits positrons with a half-life of approximately 110 minutes, enabling effective imaging of metabolic processes while minimizing radiation exposure to patients. It is commonly incorporated into fluorodeoxyglucose (FDG) for detecting cancer, assessing brain metabolism in conditions like Alzheimer's, and measuring myocardial perfusion in cardiology. The use of F-18 reduces healthcare costs through early diagnosis and personalized treatment planning, but its production requires cyclotrons and complex synthesis processes, leading to high initial costs and logistical challenges due to its short half-life, necessitating proximity to production facilities."
+  },
+  technetium99m: {
+    title: "Technetium-99m (Tc-99m)",
+    description: "Technetium-99m (Tc-99m) is a radioactive isotope widely used in nuclear medicine for diagnostic imaging. The use of Tc-99m cuts costs through early diagnosis, but its production requires modern reactors and safety management, leading to high initial costs and dependence on a stable supply."
+  },
+  iodine131Cobalt60: {
+    title: "Iodine-131 (I-131) and Cobalt-60 (Co-60)",
+    description: "This technique involves using radioactive isotopes, such as Iodine-131 (I-131) or Cobalt-60 (Co-60), to target and damage malignant cells while minimizing harm to surrounding healthy tissues, playing a key role in cancer therapy. I-131 is used to treat thyroid cancer and hyperthyroidism, while Co-60 is employed in external beam radiation therapy for various cancers, including breast and prostate cancer. This method enhances long-term treatment costs by improving cure rates and reducing the need for surgery, but it requires expensive radiation equipment and skilled personnel, pending high initial costs and challenges in maintaining safety and disposal protocols."
+  },
+  iridium192: {
+    title: "Iridium-192 (Ir-192)",
+    description: "Iridium-192 (Ir-192) is a radioactive isotope widely used in nuclear medicine, particularly for brachytherapy. It emits gamma rays with a half-life of about 74 days, allowing controlled delivery of radiation to target tissues, especially cancer cells, while minimizing exposure to healthy tissue. Ir-192 is commonly used in high-dose-rate (HDR) brachytherapy to treat cancers such as prostate and breast cancer. This technique reduces long-term healthcare costs by improving treatment success and reducing hospital stays, but its production and use require specialized equipment and trained staff, leading to high initial costs and challenges in safe handling and waste management."
+  },
+  // Agriculture sub-nodes
+  carbon14: {
+    title: "Carbon-14 (C-14)",
+    description: "A radioactive isotope widely utilized in agriculture, particularly for crop improvement and research."
+  },
+  // Industrial Radiography sub-nodes
+  specificApplications: {
+    title: "Specific Applications",
+    description: "Sterilizing medical equipment, Inspecting metal parts and welds. Increases safety and precision in quality control; cost-effective mass sterilization. High handling and disposal costs; strict regulatory controls."
+  },
+  iridium192Industrial: {
+    title: "Iridium-192 (Ir-192) - Industrial",
+    description: "A gamma-emitting isotope used primarily in non-destructive testing. Radioactive isotope with a half-life of 74 days. Industrial radiography (especially weld inspection in pipelines and structures), Brachytherapy (internal radiotherapy). Portable and efficient for field inspections; improves structural safety. Short half-life (74 days) requires frequent replenishment; high security risk."
+  },
+  nepalEarthquake: {
+    title: "Nepal Earthquake 2015",
+    description: "After the 2015 Nepal Earthquake, Non-Destructive Testing (NDT) using radioactive isotopes (like gamma radiography) was used to assess the safety of damaged buildings. This showed the vital role of industrial radiography in post-disaster inspections, leading to global efforts to expand NDT use in disaster response."
+  },
+  // Gauging sub-nodes
+  caesium137: {
+    title: "Caesium-137",
+    description: "A radioisotope with a 30.17-year half-life, commonly produced in nuclear reactors. It is widely used in gauging applications due to its gamma radiation, offering non-contact, non-destructive measurements in industrial processes. Measuring thickness of materials like paper, rubber, and metal sheets, Level gauges in tanks and silos. Enables continuous, non-contact measurements; enhances manufacturing efficiency. Radioactive waste concerns; risk of contamination if improperly handled."
+  },
+  americium241: {
+    title: "Americium-241",
+    description: "A long-lived radioisotope (half-life: 432 years) widely used in gauging and specialized industrial applications due to its alpha and gamma emissions. Material density gauges in construction and mining, Smoke detectors. Highly sensitive detection; durable source. Long half-life complicates disposal; regulatory restrictions on use."
+  },
+  // Research sub-nodes
+  researchApplications: {
+    title: "Research Applications",
+    description: "Biological Studies, Environmental Testing, Non-Radiative Nature, Dataability for Long-Term Analysis, Direct Laboratory Utilization, Water and Soil Management"
+  },
+  researchIsotopes: {
+    title: "Isotopes Used in Research",
+    description: "Carbon-14 (C-14), Hydrogen-3 (Tritium) (H-3), Chlorine-36 (Cl-36), Lead-210 (Pb-210)"
+  }
 };
 
 const nodes = [
+  // Main node
   {
-    id: "root",
+    id: "main",
     type: "input",
-    data: { label: "Half Life ROI" },
-    position: { x: 0, y: 150 },
+    data: { label: "Non-energy appliance of nuclear technology" },
+    position: { x: 0, y: 400 },
     style: {
-      background: "linear-gradient(135deg, #23272f 60%, #3b82f6 100%)",
+      background: "linear-gradient(135deg, #1e293b 60%, #6366f1 100%)",
       color: "#fff",
       border: "2px solid #6366f1",
-      borderRadius: 16,
-      fontWeight: 700,
-      fontSize: 22,
-      padding: 24,
+      borderRadius: 12,
+      fontWeight: 600,
+      fontSize: 16,
+      minWidth: 200,
+      textAlign: "center",
+      boxShadow: "0 4px 24px 0 rgba(59,130,246,0.25)",
+    },
+  },
+  // Second level nodes
+  {
+    id: "basicKnowledge",
+    data: { label: "Basic Knowledge of Nuclear" },
+    position: { x: 500, y: 100 },
+    style: {
+      background: "linear-gradient(135deg, #1e293b 60%, #8b5cf6 100%)",
+      color: "#fff",
+      border: "2px solid #8b5cf6",
+      borderRadius: 12,
+      fontWeight: 600,
+      fontSize: 16,
       minWidth: 180,
       textAlign: "center",
+      boxShadow: "0 4px 24px 0 rgba(139,92,246,0.25)",
     },
   },
   {
-    id: "quiz",
-    data: { label: "Quiz" },
-    position: { x: 300, y: 0 },
+    id: "overviewNuclearMedicine",
+    data: { label: "Overview of Nuclear Medicine" },
+    position: { x: 500, y: 250 },
     style: {
-      background: "linear-gradient(135deg, #1e293b 60%, #6366f1 100%)",
+      background: "linear-gradient(135deg, #1e293b 60%, #10b981 100%)",
       color: "#fff",
-      border: "2px solid #6366f1",
+      border: "2px solid #10b981",
       borderRadius: 12,
       fontWeight: 600,
-      fontSize: 18,
-      minWidth: 120,
+      fontSize: 16,
+      minWidth: 180,
       textAlign: "center",
-      boxShadow: "0 4px 24px 0 rgba(59,130,246,0.25)",
+      boxShadow: "0 4px 24px 0 rgba(16,185,129,0.25)",
     },
   },
   {
-    id: "calculator",
-    data: { label: "Calculator" },
-    position: { x: 300, y: 120 },
+    id: "nuclearAgriculture",
+    data: { label: "Nuclear Applications in Agriculture" },
+    position: { x: 500, y: 400 },
     style: {
-      background: "linear-gradient(135deg, #1e293b 60%, #6366f1 100%)",
+      background: "linear-gradient(135deg, #1e293b 60%, #f59e0b 100%)",
       color: "#fff",
-      border: "2px solid #6366f1",
+      border: "2px solid #f59e0b",
       borderRadius: 12,
       fontWeight: 600,
-      fontSize: 18,
-      minWidth: 120,
+      fontSize: 16,
+      minWidth: 180,
       textAlign: "center",
-      boxShadow: "0 4px 24px 0 rgba(59,130,246,0.25)",
+      boxShadow: "0 4px 24px 0 rgba(245,158,11,0.25)",
     },
   },
   {
-    id: "aboutus",
-    data: { label: "About Us" },
-    position: { x: 300, y: 240 },
+    id: "industrialRadiography",
+    data: { label: "Industrial Radiography" },
+    position: { x: 500, y: 550 },
     style: {
-      background: "linear-gradient(135deg, #1e293b 60%, #6366f1 100%)",
+      background: "linear-gradient(135deg, #1e293b 60%, #ef4444 100%)",
       color: "#fff",
-      border: "2px solid #6366f1",
+      border: "2px solid #ef4444",
       borderRadius: 12,
       fontWeight: 600,
-      fontSize: 18,
-      minWidth: 120,
+      fontSize: 16,
+      minWidth: 180,
       textAlign: "center",
-      boxShadow: "0 4px 24px 0 rgba(59,130,246,0.25)",
+      boxShadow: "0 4px 24px 0 rgba(239,68,68,0.25)",
     },
   },
   {
-    id: "mindmap",
-    data: { label: "Mindmap" },
-    position: { x: 300, y: 360 },
+    id: "gauging",
+    data: { label: "Gauging in Nuclear Technology" },
+    position: { x: 500, y: 700 },
     style: {
-      background: "linear-gradient(135deg, #1e293b 60%, #6366f1 100%)",
+      background: "linear-gradient(135deg, #1e293b 60%, #06b6d4 100%)",
       color: "#fff",
-      border: "2px solid #6366f1",
+      border: "2px solid #06b6d4",
       borderRadius: 12,
       fontWeight: 600,
-      fontSize: 18,
+      fontSize: 16,
+      minWidth: 180,
+      textAlign: "center",
+      boxShadow: "0 4px 24px 0 rgba(6,182,212,0.25)",
+    },
+  },
+  {
+    id: "nuclearResearch",
+    data: { label: "Nuclear Research" },
+    position: { x: 500, y: 850 },
+    style: {
+      background: "linear-gradient(135deg, #1e293b 60%, #ec4899 100%)",
+      color: "#fff",
+      border: "2px solid #ec4899",
+      borderRadius: 12,
+      fontWeight: 600,
+      fontSize: 16,
+      minWidth: 180,
+      textAlign: "center",
+      boxShadow: "0 4px 24px 0 rgba(236,72,153,0.25)",
+    },
+  },
+  // Third level nodes - Basic Knowledge
+  {
+    id: "definition",
+    data: { label: "Definition" },
+    position: { x: 1000, y: 50 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #8b5cf6",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
+      minWidth: 100,
+      textAlign: "center",
+      boxShadow: "0 2px 12px 0 rgba(139,92,246,0.18)",
+    },
+  },
+  {
+    id: "typesOfReactions",
+    data: { label: "Types of Reactions" },
+    position: { x: 1000, y: 120 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #8b5cf6",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
       minWidth: 120,
       textAlign: "center",
-      boxShadow: "0 4px 24px 0 rgba(59,130,246,0.25)",
-    },
-  },
-  // Second level nodes for Quiz
-  {
-    id: "quiz-mcq",
-    data: { label: "MCQ" },
-    position: { x: 600, y: -30 },
-    style: {
-      background: "#23272f",
-      color: "#fff",
-      border: "1.5px solid #6366f1",
-      borderRadius: 10,
-      fontWeight: 500,
-      fontSize: 15,
-      minWidth: 80,
-      textAlign: "center",
-      boxShadow: "0 2px 12px 0 rgba(99,102,241,0.18)",
+      boxShadow: "0 2px 12px 0 rgba(139,92,246,0.18)",
     },
   },
   {
-    id: "quiz-tf",
-    data: { label: "True/False" },
-    position: { x: 600, y: 30 },
+    id: "isotopes",
+    data: { label: "Isotopes" },
+    position: { x: 1000, y: 190 },
     style: {
       background: "#23272f",
       color: "#fff",
-      border: "1.5px solid #6366f1",
+      border: "1.5px solid #8b5cf6",
       borderRadius: 10,
       fontWeight: 500,
-      fontSize: 15,
+      fontSize: 14,
       minWidth: 80,
       textAlign: "center",
-      boxShadow: "0 2px 12px 0 rgba(99,102,241,0.18)",
+      boxShadow: "0 2px 12px 0 rgba(139,92,246,0.18)",
     },
   },
-  // Second level nodes for Calculator
+  // Third level nodes - Nuclear Medicine
   {
-    id: "calc-roi",
-    data: { label: "ROI Calc" },
-    position: { x: 600, y: 90 },
+    id: "diagnosticApplications",
+    data: { label: "Diagnostic Applications" },
+    position: { x: 1000, y: 300 },
     style: {
       background: "#23272f",
       color: "#fff",
-      border: "1.5px solid #6366f1",
+      border: "1.5px solid #10b981",
       borderRadius: 10,
       fontWeight: 500,
-      fontSize: 15,
-      minWidth: 80,
+      fontSize: 14,
+      minWidth: 140,
       textAlign: "center",
-      boxShadow: "0 2px 12px 0 rgba(99,102,241,0.18)",
+      boxShadow: "0 2px 12px 0 rgba(16,185,129,0.18)",
     },
   },
   {
-    id: "calc-half",
-    data: { label: "Half-life Calc" },
-    position: { x: 600, y: 150 },
+    id: "therapeuticApplications",
+    data: { label: "Therapeutic Applications" },
+    position: { x: 1000, y: 370 },
     style: {
       background: "#23272f",
       color: "#fff",
-      border: "1.5px solid #6366f1",
+      border: "1.5px solid #10b981",
       borderRadius: 10,
       fontWeight: 500,
-      fontSize: 15,
-      minWidth: 80,
+      fontSize: 14,
+      minWidth: 140,
       textAlign: "center",
-      boxShadow: "0 2px 12px 0 rgba(99,102,241,0.18)",
+      boxShadow: "0 2px 12px 0 rgba(16,185,129,0.18)",
     },
   },
-  // Second level nodes for About Us
+  // Third level nodes - Agriculture
   {
-    id: "about-team",
-    data: { label: "Team" },
-    position: { x: 600, y: 270 },
+    id: "carbon14",
+    data: { label: "Carbon-14 (C-14)" },
+    position: { x: 1000, y: 450 },
     style: {
       background: "#23272f",
       color: "#fff",
-      border: "1.5px solid #6366f1",
+      border: "1.5px solid #f59e0b",
       borderRadius: 10,
       fontWeight: 500,
-      fontSize: 15,
-      minWidth: 80,
+      fontSize: 14,
+      minWidth: 120,
       textAlign: "center",
-      boxShadow: "0 2px 12px 0 rgba(99,102,241,0.18)",
+      boxShadow: "0 2px 12px 0 rgba(245,158,11,0.18)",
     },
   },
-  // Second level nodes for Mindmap
+  // Third level nodes - Industrial Radiography
   {
-    id: "mindmap-overview",
-    data: { label: "Overview" },
-    position: { x: 600, y: 390 },
+    id: "specificApplications",
+    data: { label: "Specific Applications" },
+    position: { x: 1000, y: 600 },
     style: {
       background: "#23272f",
       color: "#fff",
-      border: "1.5px solid #6366f1",
+      border: "1.5px solid #ef4444",
       borderRadius: 10,
       fontWeight: 500,
-      fontSize: 15,
-      minWidth: 80,
+      fontSize: 14,
+      minWidth: 140,
       textAlign: "center",
-      boxShadow: "0 2px 12px 0 rgba(99,102,241,0.18)",
+      boxShadow: "0 2px 12px 0 rgba(239,68,68,0.18)",
     },
   },
+  {
+    id: "iridium192Industrial",
+    data: { label: "Iridium-192 (Ir-192) - Industrial" },
+    position: { x: 1000, y: 670 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #ef4444",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
+      minWidth: 160,
+      textAlign: "center",
+      boxShadow: "0 2px 12px 0 rgba(239,68,68,0.18)",
+    },
+  },
+  {
+    id: "nepalEarthquake",
+    data: { label: "Nepal Earthquake 2015" },
+    position: { x: 1000, y: 740 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #ef4444",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
+      minWidth: 140,
+      textAlign: "center",
+      boxShadow: "0 2px 12px 0 rgba(239,68,68,0.18)",
+    },
+  },
+  // Third level nodes - Gauging
+  {
+    id: "caesium137",
+    data: { label: "Caesium-137" },
+    position: { x: 1000, y: 850 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #06b6d4",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
+      minWidth: 100,
+      textAlign: "center",
+      boxShadow: "0 2px 12px 0 rgba(6,182,212,0.18)",
+    },
+  },
+  {
+    id: "americium241",
+    data: { label: "Americium-241" },
+    position: { x: 1000, y: 920 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #06b6d4",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
+      minWidth: 120,
+      textAlign: "center",
+      boxShadow: "0 2px 12px 0 rgba(6,182,212,0.18)",
+    },
+  },
+  // Third level nodes - Research
+  {
+    id: "researchApplications",
+    data: { label: "Research Applications" },
+    position: { x: 1000, y: 1050 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #ec4899",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
+      minWidth: 140,
+      textAlign: "center",
+      boxShadow: "0 2px 12px 0 rgba(236,72,153,0.18)",
+    },
+  },
+  {
+    id: "researchIsotopes",
+    data: { label: "Isotopes Used in Research" },
+    position: { x: 1000, y: 1120 },
+    style: {
+      background: "#23272f",
+      color: "#fff",
+      border: "1.5px solid #ec4899",
+      borderRadius: 10,
+      fontWeight: 500,
+      fontSize: 14,
+      minWidth: 160,
+      textAlign: "center",
+      boxShadow: "0 2px 12px 0 rgba(236,72,153,0.18)",
+    },
+  },
+  // Fourth level nodes
+  {
+    id: "fission",
+    data: { label: "Fission" },
+    position: { x: 1400, y: 80 },
+    style: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "1px solid #8b5cf6",
+      borderRadius: 8,
+      fontWeight: 400,
+      fontSize: 12,
+      minWidth: 80,
+      textAlign: "center",
+      boxShadow: "0 1px 8px 0 rgba(139,92,246,0.15)",
+    },
+  },
+  {
+    id: "fusion",
+    data: { label: "Fusion" },
+    position: { x: 1400, y: 150 },
+    style: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "1px solid #8b5cf6",
+      borderRadius: 8,
+      fontWeight: 400,
+      fontSize: 12,
+      minWidth: 80,
+      textAlign: "center",
+      boxShadow: "0 1px 8px 0 rgba(139,92,246,0.15)",
+    },
+  },
+  {
+    id: "production",
+    data: { label: "Production" },
+    position: { x: 1400, y: 220 },
+    style: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "1px solid #8b5cf6",
+      borderRadius: 8,
+      fontWeight: 400,
+      fontSize: 12,
+      minWidth: 100,
+      textAlign: "center",
+      boxShadow: "0 1px 8px 0 rgba(139,92,246,0.15)",
+    },
+  },
+  {
+    id: "fluorine18",
+    data: { label: "Fluorine-18 (F-18)" },
+    position: { x: 1400, y: 330 },
+    style: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "1px solid #10b981",
+      borderRadius: 8,
+      fontWeight: 400,
+      fontSize: 12,
+      minWidth: 120,
+      textAlign: "center",
+      boxShadow: "0 1px 8px 0 rgba(16,185,129,0.15)",
+    },
+  },
+  {
+    id: "technetium99m",
+    data: { label: "Technetium-99m (Tc-99m)" },
+    position: { x: 1400, y: 400 },
+    style: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "1px solid #10b981",
+      borderRadius: 8,
+      fontWeight: 400,
+      fontSize: 12,
+      minWidth: 140,
+      textAlign: "center",
+      boxShadow: "0 1px 8px 0 rgba(16,185,129,0.15)",
+    },
+  },
+  {
+    id: "iodine131Cobalt60",
+    data: { label: "I-131 and Co-60" },
+    position: { x: 1400, y: 470 },
+    style: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "1px solid #10b981",
+      borderRadius: 8,
+      fontWeight: 400,
+      fontSize: 12,
+      minWidth: 120,
+      textAlign: "center",
+      boxShadow: "0 1px 8px 0 rgba(16,185,129,0.15)",
+    },
+  },
+  {
+    id: "iridium192",
+    data: { label: "Iridium-192 (Ir-192)" },
+    position: { x: 1400, y: 540 },
+    style: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "1px solid #10b981",
+      borderRadius: 8,
+      fontWeight: 400,
+      fontSize: 12,
+      minWidth: 140,
+      textAlign: "center",
+      boxShadow: "0 1px 8px 0 rgba(16,185,129,0.15)",
+    },
+  }
 ];
 
 const edges = [
-  { id: "e-root-quiz", source: "root", target: "quiz", animated: true, style: { stroke: "#6366f1" }, markerEnd: { type: "arrowclosed", color: "#6366f1" } },
-  { id: "e-root-calculator", source: "root", target: "calculator", animated: true, style: { stroke: "#6366f1" }, markerEnd: { type: "arrowclosed", color: "#6366f1" } },
-  { id: "e-root-aboutus", source: "root", target: "aboutus", animated: true, style: { stroke: "#6366f1" }, markerEnd: { type: "arrowclosed", color: "#6366f1" } },
-  { id: "e-root-mindmap", source: "root", target: "mindmap", animated: true, style: { stroke: "#6366f1" }, markerEnd: { type: "arrowclosed", color: "#6366f1" } },
-  { id: "e-quiz-mcq", source: "quiz", target: "quiz-mcq", animated: true, style: { stroke: "#818cf8" }, markerEnd: { type: "arrowclosed", color: "#818cf8" } },
-  { id: "e-quiz-tf", source: "quiz", target: "quiz-tf", animated: true, style: { stroke: "#818cf8" }, markerEnd: { type: "arrowclosed", color: "#818cf8" } },
-  { id: "e-calc-roi", source: "calculator", target: "calc-roi", animated: true, style: { stroke: "#818cf8" }, markerEnd: { type: "arrowclosed", color: "#818cf8" } },
-  { id: "e-calc-half", source: "calculator", target: "calc-half", animated: true, style: { stroke: "#818cf8" }, markerEnd: { type: "arrowclosed", color: "#818cf8" } },
-  { id: "e-about-team", source: "aboutus", target: "about-team", animated: true, style: { stroke: "#818cf8" }, markerEnd: { type: "arrowclosed", color: "#818cf8" } },
-  { id: "e-mindmap-overview", source: "mindmap", target: "mindmap-overview", animated: true, style: { stroke: "#818cf8" }, markerEnd: { type: "arrowclosed", color: "#818cf8" } },
+  // Main connections
+  {
+    id: "main-basicKnowledge",
+    source: "main",
+    target: "basicKnowledge",
+    type: "smoothstep",
+    style: { stroke: "#6366f1", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#6366f1" }
+  },
+  {
+    id: "main-overviewNuclearMedicine",
+    source: "main",
+    target: "overviewNuclearMedicine",
+    type: "smoothstep",
+    style: { stroke: "#10b981", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#10b981" }
+  },
+  {
+    id: "main-nuclearAgriculture",
+    source: "main",
+    target: "nuclearAgriculture",
+    type: "smoothstep",
+    style: { stroke: "#f59e0b", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#f59e0b" }
+  },
+  {
+    id: "main-industrialRadiography",
+    source: "main",
+    target: "industrialRadiography",
+    type: "smoothstep",
+    style: { stroke: "#ef4444", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#ef4444" }
+  },
+  {
+    id: "main-gauging",
+    source: "main",
+    target: "gauging",
+    type: "smoothstep",
+    style: { stroke: "#06b6d4", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#06b6d4" }
+  },
+  {
+    id: "main-nuclearResearch",
+    source: "main",
+    target: "nuclearResearch",
+    type: "smoothstep",
+    style: { stroke: "#ec4899", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#ec4899" }
+  },
+  // Basic Knowledge connections
+  {
+    id: "basicKnowledge-definition",
+    source: "basicKnowledge",
+    target: "definition",
+    type: "smoothstep",
+    style: { stroke: "#8b5cf6", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#8b5cf6" }
+  },
+  {
+    id: "basicKnowledge-typesOfReactions",
+    source: "basicKnowledge",
+    target: "typesOfReactions",
+    type: "smoothstep",
+    style: { stroke: "#8b5cf6", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#8b5cf6" }
+  },
+  {
+    id: "basicKnowledge-isotopes",
+    source: "basicKnowledge",
+    target: "isotopes",
+    type: "smoothstep",
+    style: { stroke: "#8b5cf6", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#8b5cf6" }
+  },
+  // Types of Reactions connections
+  {
+    id: "typesOfReactions-fission",
+    source: "typesOfReactions",
+    target: "fission",
+    type: "smoothstep",
+    style: { stroke: "#8b5cf6", strokeWidth: 1.5 },
+    markerEnd: { type: "arrowclosed", color: "#8b5cf6" }
+  },
+  {
+    id: "typesOfReactions-fusion",
+    source: "typesOfReactions",
+    target: "fusion",
+    type: "smoothstep",
+    style: { stroke: "#8b5cf6", strokeWidth: 1.5 },
+    markerEnd: { type: "arrowclosed", color: "#8b5cf6" }
+  },
+  // Isotopes connections
+  {
+    id: "isotopes-production",
+    source: "isotopes",
+    target: "production",
+    type: "smoothstep",
+    style: { stroke: "#8b5cf6", strokeWidth: 1.5 },
+    markerEnd: { type: "arrowclosed", color: "#8b5cf6" }
+  },
+  // Nuclear Medicine connections
+  {
+    id: "overviewNuclearMedicine-diagnosticApplications",
+    source: "overviewNuclearMedicine",
+    target: "diagnosticApplications",
+    type: "smoothstep",
+    style: { stroke: "#10b981", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#10b981" }
+  },
+  {
+    id: "overviewNuclearMedicine-therapeuticApplications",
+    source: "overviewNuclearMedicine",
+    target: "therapeuticApplications",
+    type: "smoothstep",
+    style: { stroke: "#10b981", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#10b981" }
+  },
+  // Diagnostic Applications connections
+  {
+    id: "diagnosticApplications-fluorine18",
+    source: "diagnosticApplications",
+    target: "fluorine18",
+    type: "smoothstep",
+    style: { stroke: "#10b981", strokeWidth: 1.5 },
+    markerEnd: { type: "arrowclosed", color: "#10b981" }
+  },
+  {
+    id: "diagnosticApplications-technetium99m",
+    source: "diagnosticApplications",
+    target: "technetium99m",
+    type: "smoothstep",
+    style: { stroke: "#10b981", strokeWidth: 1.5 },
+    markerEnd: { type: "arrowclosed", color: "#10b981" }
+  },
+  // Therapeutic Applications connections
+  {
+    id: "therapeuticApplications-iodine131Cobalt60",
+    source: "therapeuticApplications",
+    target: "iodine131Cobalt60",
+    type: "smoothstep",
+    style: { stroke: "#10b981", strokeWidth: 1.5 },
+    markerEnd: { type: "arrowclosed", color: "#10b981" }
+  },
+  {
+    id: "therapeuticApplications-iridium192",
+    source: "therapeuticApplications",
+    target: "iridium192",
+    type: "smoothstep",
+    style: { stroke: "#10b981", strokeWidth: 1.5 },
+    markerEnd: { type: "arrowclosed", color: "#10b981" }
+  },
+  // Agriculture connections
+  {
+    id: "nuclearAgriculture-carbon14",
+    source: "nuclearAgriculture",
+    target: "carbon14",
+    type: "smoothstep",
+    style: { stroke: "#f59e0b", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#f59e0b" }
+  },
+  // Industrial Radiography connections
+  {
+    id: "industrialRadiography-specificApplications",
+    source: "industrialRadiography",
+    target: "specificApplications",
+    type: "smoothstep",
+    style: { stroke: "#ef4444", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#ef4444" }
+  },
+  {
+    id: "industrialRadiography-iridium192Industrial",
+    source: "industrialRadiography",
+    target: "iridium192Industrial",
+    type: "smoothstep",
+    style: { stroke: "#ef4444", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#ef4444" }
+  },
+  {
+    id: "industrialRadiography-nepalEarthquake",
+    source: "industrialRadiography",
+    target: "nepalEarthquake",
+    type: "smoothstep",
+    style: { stroke: "#ef4444", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#ef4444" }
+  },
+  // Gauging connections
+  {
+    id: "gauging-caesium137",
+    source: "gauging",
+    target: "caesium137",
+    type: "smoothstep",
+    style: { stroke: "#06b6d4", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#06b6d4" }
+  },
+  {
+    id: "gauging-americium241",
+    source: "gauging",
+    target: "americium241",
+    type: "smoothstep",
+    style: { stroke: "#06b6d4", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#06b6d4" }
+  },
+  // Research connections
+  {
+    id: "nuclearResearch-researchApplications",
+    source: "nuclearResearch",
+    target: "researchApplications",
+    type: "smoothstep",
+    style: { stroke: "#ec4899", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#ec4899" }
+  },
+  {
+    id: "nuclearResearch-researchIsotopes",
+    source: "nuclearResearch",
+    target: "researchIsotopes",
+    type: "smoothstep",
+    style: { stroke: "#ec4899", strokeWidth: 2 },
+    markerEnd: { type: "arrowclosed", color: "#ec4899" }
+  }
 ];
 
 function MindMapFlow() {
@@ -482,6 +1022,9 @@ export default function Home() {
               <a href="#isotope-game" className="px-4 py-1 rounded-full transition-colors duration-200 hover:bg-white/10 hover:text-white cursor-pointer block">Isotope Game</a>
             </li>
             <li>
+              <a href="#videos" className="px-4 py-1 rounded-full transition-colors duration-200 hover:bg-white/10 hover:text-white cursor-pointer block">Videos</a>
+            </li>
+            <li>
               <a href="#calculator" className="px-4 py-1 rounded-full transition-colors duration-200 hover:bg-white/10 hover:text-white cursor-pointer block">Calculator</a>
             </li>
             <li>
@@ -511,24 +1054,27 @@ export default function Home() {
         <section id="mindmap" className="w-full min-h-screen flex flex-col items-center justify-center scroll-mt-32">
           <div className="text-center mb-12">
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
-              Visual Journey
+              Nuclear Technology Mindmap
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Explore the interconnected world of Half Life ROI through our interactive mind map
+              Explore the comprehensive structure of nuclear technology applications beyond energy generation
             </p>
             <div className="flex justify-center mt-4">
               <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium">
                 Interactive
               </span>
               <span className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
-                Dynamic
+                Educational
               </span>
-              <span className="bg-gradient-to-r from-pink-500 to-red-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
-                Connected
+              <span className="bg-gradient-to-r from-pink-500 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
+                Comprehensive
               </span>
             </div>
           </div>
-          <MindMapFlow />
+          
+          <div className="w-full max-w-7xl px-4">
+            <MindMapFlow />
+          </div>
         </section>
         
         {/* Quiz Section */}
@@ -636,13 +1182,13 @@ export default function Home() {
         </section>
         
         {/* Isotope Game Section */}
-        <section id="isotope-game" className="w-full min-h-screen flex flex-col items-center justify-center scroll-mt-32">
+        <section id="isotope-game" className="w-full min-h-screen flex flex-col items-center justify-center scroll-mt-32 mt-20">
           <div className="text-center mb-12">
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent mb-4">
-              Nuclear Isotopes
+              Isotope Game
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Explore the fascinating world of nuclear isotopes through our interactive learning game
+              Experience the fascinating world of isotopes through interactive learning scenarios
             </p>
             <div className="flex justify-center mt-4">
               <span className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-medium">
@@ -652,50 +1198,136 @@ export default function Home() {
                 Educational
               </span>
               <span className="bg-gradient-to-r from-red-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
-                Nuclear Physics
+                Fun
               </span>
             </div>
           </div>
           
-          {/* Game Navigation Card */}
-          <div className="w-full max-w-4xl px-4">
-            <div className="group">
-              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-8 hover:border-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-4xl">⚛️</span>
+          <div className="w-full max-w-6xl px-4">
+            <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-8 hover-lift">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-gradient-to-br from-purple-900/80 to-pink-900/80 backdrop-blur-md border border-purple-700 rounded-xl p-6 hover:border-purple-500 transition-all duration-300">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl">🏥</span>
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-2">Medicine</h4>
+                    <p className="text-gray-400 text-sm">Medical imaging & treatment</p>
                   </div>
-                  <h3 className="text-3xl font-bold text-white mb-4">Nuclear Isotopes: Beyond Energy</h3>
-                  <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
-                    Discover how isotopes are used in medicine, agriculture, art authentication, industry, and research. 
-                    Learn about half-life, radioactive decay, and real-world applications through interactive scenarios.
+                </div>
+
+                <div className="bg-gradient-to-br from-green-900/80 to-emerald-900/80 backdrop-blur-md border border-green-700 rounded-xl p-6 hover:border-green-500 transition-all duration-300">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl">🌾</span>
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-2">Agriculture</h4>
+                    <p className="text-gray-400 text-sm">Crop improvement & pest control</p>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-orange-900/80 to-red-900/80 backdrop-blur-md border border-orange-700 rounded-xl p-6 hover:border-orange-500 transition-all duration-300">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl">🏭</span>
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-2">Industry</h4>
+                    <p className="text-gray-400 text-sm">Quality control & testing</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <button 
+                  onClick={() => window.location.href = '/isotope-game'}
+                  className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all text-lg hover-lift animate-pulse-glow"
+                >
+                  Start Learning Game
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Videos Section */}
+        <section id="videos" className="w-full min-h-screen flex flex-col items-center justify-center scroll-mt-32 mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent mb-4">
+              Educational Videos
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Learn through engaging video content about nuclear physics, ROI calculations, and real-world applications
+            </p>
+            <div className="flex justify-center mt-4">
+              <span className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                HD Quality
+              </span>
+              <span className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
+                Interactive
+              </span>
+              <span className="bg-gradient-to-r from-red-500 to-yellow-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
+                Educational
+              </span>
+            </div>
+          </div>
+          
+          {/* Video Player */}
+          <div className="w-full max-w-4xl px-4 mb-8">
+            <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-8 hover-lift">
+              <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-600 overflow-hidden mb-6">
+                {/* Replace this URL with your S3 bucket video URL */}
+                <video 
+                  className="w-full h-full rounded-xl"
+                  controls
+                  preload="metadata"
+                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23374151'/%3E%3Ccircle cx='8' cy='4.5' r='2' fill='%23f59e0b'/%3E%3C/svg%3E"
+                >
+                  {/* Replace this src with your actual S3 bucket video URL */}
+                  <source 
+                    src="https://your-s3-bucket-name.s3.amazonaws.com/your-video-file.mp4" 
+                    type="video/mp4" 
+                  />
+                  {/* Add additional source formats if needed */}
+                  {/* <source src="https://your-s3-bucket-name.s3.amazonaws.com/your-video-file.webm" type="video/webm" /> */}
+                  {/* <source src="https://your-s3-bucket-name.s3.amazonaws.com/your-video-file.ogg" type="video/ogg" /> */}
+                  
+                  {/* Fallback text for browsers that don't support video */}
+                  <p className="text-center text-gray-400 p-8">
+                    Your browser does not support the video tag. 
+                    <br />
+                    <a 
+                      href="https://your-s3-bucket-name.s3.amazonaws.com/your-video-file.mp4" 
+                      className="text-yellow-500 hover:text-yellow-400 underline"
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      Click here to download the video
+                    </a>
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-purple-500/20 border border-purple-500/30 rounded-lg p-4">
-                      <div className="text-2xl mb-2">🏥</div>
-                      <div className="text-purple-300 font-semibold">Medicine</div>
-                      <div className="text-purple-400 text-sm">Medical imaging & treatment</div>
-                    </div>
-                    <div className="bg-pink-500/20 border border-pink-500/30 rounded-lg p-4">
-                      <div className="text-2xl mb-2">🌾</div>
-                      <div className="text-pink-300 font-semibold">Agriculture</div>
-                      <div className="text-pink-400 text-sm">Crop improvement & pest control</div>
-                    </div>
-                    <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
-                      <div className="text-2xl mb-2">🏭</div>
-                      <div className="text-red-300 font-semibold">Industry</div>
-                      <div className="text-red-400 text-sm">Quality control & testing</div>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={() => window.location.href = '/isotope-game'}
-                    className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all text-lg hover-lift animate-pulse-glow"
-                  >
-                    Start Learning Game
-                  </button>
+                </video>
+              </div>
+              
+              {/* Video Info */}
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-white mb-2">Nuclear Physics Explained</h3>
+                <p className="text-gray-400 text-lg">Understanding half-life, radioactive decay, and real-world applications</p>
+                <div className="flex justify-center items-center gap-4 mt-4 text-sm text-gray-500">
+                  <span>📺 HD Quality</span>
+                  <span>⏱️ 8:30 min</span>
+                  <span>🎓 Educational</span>
                 </div>
               </div>
             </div>
+          </div>
+          
+          {/* More Button */}
+          <div className="text-center">
+            <button 
+              onClick={() => window.location.href = '/videos'}
+              className="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-semibold rounded-lg hover:from-yellow-600 hover:to-orange-700 transition-all text-lg hover-lift animate-pulse-glow"
+            >
+              More Videos
+            </button>
           </div>
         </section>
         
@@ -974,6 +1606,12 @@ export default function Home() {
                   <a href="#isotope-game" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
                     <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
                     Isotope Game
+                  </a>
+                </li>
+                <li>
+                  <a href="#videos" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                    Videos
                   </a>
                 </li>
                 <li>

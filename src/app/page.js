@@ -523,9 +523,294 @@ export default function Home() {
               </span>
             </div>
           </div>
-          <div className="text-4xl text-gray-200 font-bold">About Us Section (placeholder)</div>
+          
+          {/* Team Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl px-4">
+            {/* Team Member 1 */}
+            <div className="group cursor-pointer hover-lift">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-indigo-500 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">👨‍💻</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Mohamed Fawas Mohamed Shimer</h3>
+                  <p className="text-indigo-400 font-semibold mb-3">Computer Scientist</p>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Expert in algorithms, data structures, and computational theory with focus on financial technology applications.
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full text-xs">Algorithms</span>
+                    <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs">Data Science</span>
+                    <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs">FinTech</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Member 2 */}
+            <div className="group cursor-pointer hover-lift">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">👨‍💻</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Kuruppuge Sanuga Lakdinu Kuruppu</h3>
+                  <p className="text-purple-400 font-semibold mb-3">Computer Scientist</p>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Specialized in software engineering and system architecture for financial technology platforms.
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs">Software Eng</span>
+                    <span className="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-xs">Architecture</span>
+                    <span className="bg-violet-500/20 text-violet-300 px-3 py-1 rounded-full text-xs">Systems</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Member 3 */}
+            <div className="group cursor-pointer hover-lift">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-green-500 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">👩‍💼</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Alibekova Kamila</h3>
+                  <p className="text-green-400 font-semibold mb-3">Economist</p>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Economic analyst specializing in financial markets, investment strategies, and market trends.
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs">Financial Markets</span>
+                    <span className="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full text-xs">Investment</span>
+                    <span className="bg-teal-500/20 text-teal-300 px-3 py-1 rounded-full text-xs">Analysis</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Member 4 */}
+            <div className="group cursor-pointer hover-lift">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-orange-500 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">👨‍💼</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Nguyen Duy Anh Dung</h3>
+                  <p className="text-orange-400 font-semibold mb-3">Economist</p>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Economic researcher focused on ROI analysis, financial modeling, and economic forecasting.
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-xs">ROI Analysis</span>
+                    <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-xs">Modeling</span>
+                    <span className="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full text-xs">Forecasting</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Member 5 */}
+            <div className="group cursor-pointer hover-lift">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">👩‍🔬</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Pham Ngo Quyen Anh</h3>
+                  <p className="text-blue-400 font-semibold mb-3">Nuclear Scientist</p>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Nuclear physicist specializing in half-life calculations and radioactive decay modeling.
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs">Half-Life</span>
+                    <span className="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-xs">Nuclear Physics</span>
+                    <span className="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full text-xs">Decay Models</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Member 6 */}
+            <div className="group cursor-pointer hover-lift">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-pink-500 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">👩‍💼</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Peiris Modarage Himara Harshitha</h3>
+                  <p className="text-pink-400 font-semibold mb-3">Economist</p>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Economic analyst with expertise in financial risk assessment and market dynamics.
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-xs">Risk Assessment</span>
+                    <span className="bg-rose-500/20 text-rose-300 px-3 py-1 rounded-full text-xs">Market Dynamics</span>
+                    <span className="bg-fuchsia-500/20 text-fuchsia-300 px-3 py-1 rounded-full text-xs">Analysis</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Member 7 */}
+            <div className="group cursor-pointer hover-lift">
+              <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-teal-500 transition-all duration-300 hover:shadow-2xl hover:shadow-teal-500/20">
+                <div className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-3xl">👩‍💼</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Nguyen Thi Hong Khanh</h3>
+                  <p className="text-teal-400 font-semibold mb-3">Economist</p>
+                  <p className="text-gray-400 text-sm mb-4">
+                    Economic researcher specializing in financial policy analysis and economic development.
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    <span className="bg-teal-500/20 text-teal-300 px-3 py-1 rounded-full text-xs">Policy Analysis</span>
+                    <span className="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-xs">Development</span>
+                    <span className="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full text-xs">Research</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Company Stats */}
+          <div className="mt-16 w-full max-w-4xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">10K+</div>
+                <div className="text-gray-400 text-sm">Total Users</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent mb-2">99.9%</div>
+                <div className="text-gray-400 text-sm">Uptime</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent mb-2">24/7</div>
+                <div className="text-gray-400 text-sm">Support</div>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
+      
+      {/* Footer Section */}
+      <footer className="w-full bg-gray-900/80 backdrop-blur-md border-t border-gray-800 mt-20">
+        <div className="w-full px-4 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {/* Company Info */}
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-gradient-to-br from-white/80 to-gray-400/30 rounded-full flex items-center justify-center">
+                  <span className="text-xl font-bold text-black/80">◎</span>
+                </div>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  Half Life ROI
+                </h3>
+              </div>
+              <p className="text-gray-400 mb-6 max-w-md">
+                Revolutionizing financial technology with advanced ROI calculations, interactive quizzes, and cutting-edge tools for modern investors and analysts.
+              </p>
+              <div className="flex gap-4">
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors group">
+                  <span className="text-white group-hover:scale-110 transition-transform">📧</span>
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors group">
+                  <span className="text-white group-hover:scale-110 transition-transform">🐦</span>
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors group">
+                  <span className="text-white group-hover:scale-110 transition-transform">💼</span>
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors group">
+                  <span className="text-white group-hover:scale-110 transition-transform">📱</span>
+                </a>
+              </div>
+            </div>
+            
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href="#home" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#mindmap" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                    Mindmap
+                  </a>
+                </li>
+                <li>
+                  <a href="#quiz" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+                    Quiz
+                  </a>
+                </li>
+                <li>
+                  <a href="#calculator" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <span className="w-1 h-1 bg-orange-500 rounded-full"></span>
+                    Calculator
+                  </a>
+                </li>
+                <li>
+                  <a href="#aboutus" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <span className="w-1 h-1 bg-indigo-500 rounded-full"></span>
+                    About Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
+            {/* Contact Info */}
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Contact</h4>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-gray-400">
+                  <span className="w-5 h-5 bg-blue-500/20 rounded-full flex items-center justify-center">
+                    📧
+                  </span>
+                  <span>contact@halflife-roi.com</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-400">
+                  <span className="w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center">
+                    📞
+                  </span>
+                  <span>+1 (555) 123-4567</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-400">
+                  <span className="w-5 h-5 bg-purple-500/20 rounded-full flex items-center justify-center">
+                    📍
+                  </span>
+                  <span>Code Wizard HQ</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-400">
+                  <span className="w-5 h-5 bg-orange-500/20 rounded-full flex items-center justify-center">
+                    ⏰
+                  </span>
+                  <span>24/7 Support</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-800 mt-12 pt-8 max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-gray-400 text-sm">
+                © 2024 Half Life ROI by Code Wizard. All rights reserved.
+              </div>
+              <div className="flex gap-6 text-sm">
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">Cookie Policy</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

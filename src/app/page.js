@@ -399,7 +399,7 @@ export default function Home() {
           {/* Domain Selection Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl px-4">
             {/* Space Technology */}
-            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios?domain=space'}>
+            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios/space'}>
               <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -412,7 +412,7 @@ export default function Home() {
             </div>
 
             {/* Agriculture */}
-            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios?domain=agriculture'}>
+            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios/agriculture'}>
               <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-green-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -425,7 +425,7 @@ export default function Home() {
             </div>
 
             {/* Medical */}
-            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios?domain=medical'}>
+            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios/medical'}>
               <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-red-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/20">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -438,7 +438,7 @@ export default function Home() {
             </div>
 
             {/* Technology */}
-            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios?domain=technology'}>
+            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios/technology'}>
               <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -451,7 +451,7 @@ export default function Home() {
             </div>
 
             {/* Finance */}
-            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios?domain=finance'}>
+            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios/finance'}>
               <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-yellow-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/20">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -464,7 +464,7 @@ export default function Home() {
             </div>
 
             {/* Environment */}
-            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios?domain=environment'}>
+            <div className="group cursor-pointer" onClick={() => window.location.href = '/quiz-studios/environment'}>
               <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-6 hover:border-teal-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/20">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">

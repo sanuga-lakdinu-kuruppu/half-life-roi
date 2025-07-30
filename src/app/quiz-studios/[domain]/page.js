@@ -1,19 +1,9 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function QuizStudios() {
-  const searchParams = useSearchParams();
-  const [domain, setDomain] = useState(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    if (searchParams) {
-      setDomain(searchParams.get("domain"));
-    }
-  }, [searchParams]);
+  const { domain } = useParams();
 
   const domainInfo = {
     space: {
@@ -53,21 +43,6 @@ export default function QuizStudios() {
     emoji: "❓",
     color: "from-gray-500 to-gray-600",
   };
-
-  // Show loading state during SSR
-  if (!mounted) {
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
-        <div className="text-center z-10">
-          <div className="animate-pulse">
-            <div className="w-24 h-24 bg-gray-700 rounded-full mx-auto mb-6"></div>
-            <div className="h-16 bg-gray-700 rounded mb-4"></div>
-            <div className="h-8 bg-gray-700 rounded w-64 mx-auto"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden">

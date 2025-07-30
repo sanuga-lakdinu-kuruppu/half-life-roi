@@ -253,7 +253,7 @@ export default function Research() {
         </h2>
         <div className="text-left max-w-3xl mx-auto">
           <div className="bg-gradient-to-br from-green-900/50 to-emerald-900/50 backdrop-blur-md border border-green-600 rounded-2xl p-8 mb-8">
-            <p className="text-xl text-gray-300 mb-4">Excellent work! You've completed the tracer experiment design.</p>
+            <p className="text-xl text-gray-300 mb-4">Excellent work! You&apos;ve completed the tracer experiment design.</p>
             <p className="text-2xl mb-4">Final Score: <strong className="text-green-400">{score}</strong> points</p>
             <p className="text-lg text-gray-400">Accuracy: <strong className="text-blue-400">{Math.round((correctCount / analyzedCount) * 100)}%</strong> ({correctCount}/{analyzedCount} correct)</p>
           </div>

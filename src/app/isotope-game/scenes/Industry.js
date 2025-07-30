@@ -234,7 +234,7 @@ export default function Industry() {
           <div className="bg-gradient-to-br from-orange-900/50 to-red-900/50 backdrop-blur-md border border-orange-600 rounded-2xl p-8 mb-8">
             <h3 className="text-2xl font-bold text-white mb-4">Your Mission</h3>
             <p className="text-gray-300 text-lg leading-relaxed">
-              Select the appropriate beta particle source for measuring each material's thickness. Consider the particle energy and material properties.
+              Select the appropriate beta particle source for measuring each material&apos;s thickness. Consider the particle energy and material properties.
             </p>
           </div>
           
@@ -259,7 +259,7 @@ export default function Industry() {
         </h2>
         <div className="text-left max-w-3xl mx-auto">
           <div className="bg-gradient-to-br from-green-900/50 to-emerald-900/50 backdrop-blur-md border border-green-600 rounded-2xl p-8 mb-8">
-            <p className="text-xl text-gray-300 mb-4">Excellent work! You've completed the beta particle thickness measurements.</p>
+            <p className="text-xl text-gray-300 mb-4">Excellent work! You&apos;ve completed the beta particle thickness measurements.</p>
             <p className="text-2xl mb-4">Final Score: <strong className="text-green-400">{score}</strong> points</p>
             <p className="text-lg text-gray-400">Accuracy: <strong className="text-blue-400">{Math.round((correctCount / analyzedCount) * 100)}%</strong> ({correctCount}/{analyzedCount} correct)</p>
           </div>

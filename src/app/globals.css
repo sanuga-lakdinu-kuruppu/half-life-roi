@@ -26,5 +26,22 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Geist Mono', 'Fira Mono', 'JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'monospace';
+}
+
+@keyframes bg-move1 {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(40px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes bg-move2 {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-40px) scale(1.08); }
+  100% { transform: translateY(0) scale(1); }
+}
+.animate-bg-move1 {
+  animation: bg-move1 12s ease-in-out infinite;
+}
+.animate-bg-move2 {
+  animation: bg-move2 16s ease-in-out infinite;
 }

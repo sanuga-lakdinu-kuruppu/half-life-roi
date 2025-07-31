@@ -1073,7 +1073,7 @@ export default function Home() {
           if (entry.isIntersecting) {
             // Video is visible - play it
             video.play().catch((error) => {
-              console.log('Auto-play prevented:', error);
+              console.log("Auto-play prevented:", error);
             });
           } else {
             // Video is not visible - pause it
@@ -1083,7 +1083,7 @@ export default function Home() {
       },
       {
         threshold: 0.5, // Trigger when 50% of video is visible
-        rootMargin: '0px 0px -100px 0px' // Add some margin for better UX
+        rootMargin: "0px 0px -100px 0px", // Add some margin for better UX
       }
     );
 
@@ -1490,13 +1490,13 @@ export default function Home() {
               </span>
             </div>
           </div>
-          
+
           {/* Video Player */}
           <div className="w-full max-w-4xl px-4 mb-8">
             <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-700/80 backdrop-blur-md border border-gray-700 rounded-2xl p-8 hover-lift">
               <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-600 overflow-hidden mb-6">
                 {/* Video with auto-play on scroll visibility */}
-                <video 
+                <video
                   ref={videoRef}
                   className="w-full h-full rounded-xl"
                   controls
@@ -1505,19 +1505,19 @@ export default function Home() {
                   poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23374151'/%3E%3Ccircle cx='8' cy='4.5' r='2' fill='%23f59e0b'/%3E%3C/svg%3E"
                 >
                   {/* Video source from S3 bucket */}
-                  <source 
-                    src="https://half-life-roi.s3.ap-southeast-1.amazonaws.com/1234.MOV" 
-                    type="video/mp4" 
+                  <source
+                    src="https://half-life-roi.s3.ap-southeast-1.amazonaws.com/1234.MOV"
+                    type="video/mp4"
                   />
-                  
+
                   {/* Fallback text for browsers that don't support video */}
                   <p className="text-center text-gray-400 p-8">
-                    Your browser does not support the video tag. 
+                    Your browser does not support the video tag.
                     <br />
-                    <a 
-                      href="https://half-life-roi.s3.ap-southeast-1.amazonaws.com/1234.MOV" 
+                    <a
+                      href="https://half-life-roi.s3.ap-southeast-1.amazonaws.com/1234.MOV"
                       className="text-yellow-500 hover:text-yellow-400 underline"
-                      target="_blank" 
+                      target="_blank"
                       rel="noopener noreferrer"
                     >
                       Click here to download the video
@@ -1527,8 +1527,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
-
         </section>
 
         {/* Calculator Section */}

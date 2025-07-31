@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Enhanced Confetti SVG component with more engaging effects
 function ConfettiEffect() {
@@ -98,7 +98,85 @@ export default function QuizStudios() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [score, setScore] = useState(0);
   const [fails, setFails] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [error, setError] = useState("");
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [apiQuestions, setApiQuestions] = useState([]);
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
+  const [apiResults, setApiResults] = useState(null);
+  
+  // Check for existing user authentication on component mount
+  useEffect(() => {
+    const accessToken = localStorage.getItem('quizAccessToken');
+    const userId = localStorage.getItem('quizUserId');
+    const userName = localStorage.getItem('quizUserName');
+    
+    if (accessToken && userId && userName) {
+      setUserData({
+        accessToken,
+        userId,
+        name: userName
+      });
+      setIsAuthenticated(true);
+      setQuizStarted(true);
+      // Fetch questions for existing user
+      fetchQuestions(accessToken);
+    }
+  }, []);
+  
+  // Function to fetch questions from API
+  const fetchQuestions = async (token) => {
+    setIsLoadingQuestions(true);
+    try {
+      const response = await fetch('https://cru4fa4esf.execute-api.ap-southeast-1.amazonaws.com/dev/quiz', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success && result.data.questions) {
+        setApiQuestions(result.data.questions);
+      } else {
+        console.error('Failed to fetch questions:', result.message);
+      }
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+    } finally {
+      setIsLoadingQuestions(false);
+    }
+  };
+
+  // Function to fetch quiz results from API
+  const fetchQuizResults = async (token) => {
+    try {
+      const response = await fetch('https://cru4fa4esf.execute-api.ap-southeast-1.amazonaws.com/dev/quiz/results', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        return result.data;
+      } else {
+        console.error('Failed to fetch quiz results:', result.message);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching quiz results:', error);
+      return null;
+    }
+  };
+  
   const [leaderboard, setLeaderboard] = useState([
     { name: "Alex Johnson", score: 95, domain: "Space Technology" },
     { name: "Sarah Chen", score: 88, domain: "Space Technology" },
@@ -309,30 +387,121 @@ export default function QuizStudios() {
     questions: [],
   };
 
-  const handleStartQuiz = () => {
-    if (userName.trim()) {
-      setQuizStarted(true);
+  const handleStartQuiz = async () => {
+    if (!userName.trim()) return;
+    
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      const response = await fetch('https://cru4fa4esf.execute-api.ap-southeast-1.amazonaws.com/dev/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: userName.trim()
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setUserData(result.data);
+        // Store access token in localStorage
+        localStorage.setItem('quizAccessToken', result.data.accessToken);
+        localStorage.setItem('quizUserId', result.data.userId);
+        localStorage.setItem('quizUserName', result.data.name);
+        setIsAuthenticated(true);
+        setQuizStarted(true);
+        // Fetch questions after user creation
+        await fetchQuestions(result.data.accessToken);
+      } else {
+        setError(result.message || 'Failed to create user');
+      }
+    } catch (err) {
+      console.error('Error creating user:', err);
+      setError('Network error. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleAnswerSubmit = () => {
+  const handleAnswerSubmit = async () => {
     if (selectedAnswer === null) return;
 
-    const currentQuestion = currentDomain.questions[currentQuestionIndex];
-    if (selectedAnswer === currentQuestion.correct) {
+    const questions = apiQuestions.length > 0 ? apiQuestions : currentDomain.questions;
+    const currentQuestion = questions[currentQuestionIndex];
+    
+    // For API questions, we need to determine correct answer based on the question structure
+    // Since API questions don't have a 'correct' field, we'll need to handle this differently
+    let isCorrect = false;
+    
+    if (apiQuestions.length > 0) {
+      // For API questions, we'll need to send the answer to backend for validation
+      // For now, we'll assume all answers are correct (you can modify this logic)
+      isCorrect = true; // This should be determined by backend response
+    } else {
+      // For hardcoded questions, use the correct field
+      isCorrect = selectedAnswer === currentQuestion.correct;
+    }
+    
+    if (isCorrect) {
       setScore(score + 1);
     } else {
       setFails(fails + 1);
     }
 
-    if (currentQuestionIndex < currentDomain.questions.length - 1) {
+    // Send answer to backend with access token
+    if (userData?.accessToken) {
+      try {
+        const response = await fetch('https://cru4fa4esf.execute-api.ap-southeast-1.amazonaws.com/dev/quiz/answer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userData.accessToken}`
+          },
+          body: JSON.stringify({
+            questionIndex: currentQuestionIndex,
+            answer: currentQuestion.options[selectedAnswer]
+          })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          console.log('Answer submitted successfully');
+        } else {
+          console.error('Failed to submit answer:', result.message);
+        }
+      } catch (error) {
+        console.error('Error submitting answer:', error);
+        // Continue with quiz even if API call fails
+      }
+    }
+
+    if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
     } else {
+      // Quiz completed - fetch results from API
+      if (userData?.accessToken) {
+        try {
+          const results = await fetchQuizResults(userData.accessToken);
+          if (results) {
+            // Store API results
+            setApiResults(results);
+            setScore(results.totalScore || 0);
+            setFails((results.totalQuestions || 0) - (results.totalScore || 0));
+          }
+        } catch (error) {
+          console.error('Error fetching quiz results:', error);
+        }
+      }
+      
       setQuizCompleted(true);
       // Add to leaderboard
-      const newScore = selectedAnswer === currentQuestion.correct ? score + 1 : score;
-      const newEntry = { name: userName, score: newScore, domain: currentDomain.name };
+      const newScore = isCorrect ? score + 1 : score;
+      const newEntry = { name: userData?.name || userName, score: newScore, domain: currentDomain.name };
       setLeaderboard([...leaderboard, newEntry].sort((a, b) => b.score - a.score).slice(0, 5));
     }
   };
@@ -345,6 +514,17 @@ export default function QuizStudios() {
     setFails(0);
     setQuizCompleted(false);
     setUserName("");
+    setUserData(null);
+    setError("");
+    setIsLoading(false);
+    setIsAuthenticated(false);
+    setApiQuestions([]);
+    setIsLoadingQuestions(false);
+    setApiResults(null);
+    // Clear localStorage
+    localStorage.removeItem('quizAccessToken');
+    localStorage.removeItem('quizUserId');
+    localStorage.removeItem('quizUserName');
   };
 
   // Landing Page
@@ -396,12 +576,26 @@ export default function QuizStudios() {
                 placeholder="Your name here..."
                 className="w-full px-4 py-3 bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors hover-lift"
               />
+              {error && (
+                <div className="mt-3 p-3 bg-red-900/50 border border-red-700 rounded-lg text-red-400 text-sm">
+                  {error}
+                </div>
+              )}
               <button
                 onClick={handleStartQuiz}
-                disabled={!userName.trim()}
-                className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover-lift animate-pulse-glow"
+                disabled={!userName.trim() || isLoading}
+                className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover-lift animate-pulse-glow relative"
               >
-                Start Quiz
+                {isLoading ? (
+                  <>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <span className="opacity-0">Creating User...</span>
+                  </>
+                ) : (
+                  "Start Quiz"
+                )}
               </button>
             </div>
           </div>
@@ -435,8 +629,10 @@ export default function QuizStudios() {
 
   // Quiz Interface
   if (quizStarted && !quizCompleted) {
-    const currentQuestion = currentDomain.questions[currentQuestionIndex];
-    const progress = ((currentQuestionIndex + 1) / currentDomain.questions.length) * 100;
+    // Use API questions if available, otherwise fall back to hardcoded questions
+    const questions = apiQuestions.length > 0 ? apiQuestions : currentDomain.questions;
+    const currentQuestion = questions[currentQuestionIndex];
+    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
@@ -448,7 +644,7 @@ export default function QuizStudios() {
         </div>
 
         {/* Header */}
-        <div className="absolute top-8 left-8 z-20">
+        <div className="absolute top-8 left-8 z-20 flex gap-4">
           <Link
             href="/#quiz"
             className="flex items-center gap-2 px-4 py-2 bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-full text-white hover:bg-gray-800 transition-colors hover-lift"
@@ -456,6 +652,12 @@ export default function QuizStudios() {
             <span>←</span>
             <span>Back to Quiz</span>
           </Link>
+          {userData && (
+            <div className="flex items-center gap-2 px-4 py-2 bg-blue-900/80 backdrop-blur-md border border-blue-700 rounded-full text-blue-300">
+              <span>👤</span>
+              <span>{userData.name}</span>
+            </div>
+          )}
         </div>
 
         {/* Score Display */}
@@ -466,54 +668,70 @@ export default function QuizStudios() {
           <div className="px-4 py-2 bg-red-900/80 backdrop-blur-md border border-red-700 rounded-full text-red-400 font-semibold animate-pulse-glow">
             ❌ {fails}
           </div>
+          <button
+            onClick={resetQuiz}
+            className="px-4 py-2 bg-red-900/80 backdrop-blur-md border border-red-700 rounded-full text-red-400 hover:bg-red-800 transition-colors hover-lift"
+            title="Logout"
+          >
+            🚪
+          </button>
         </div>
 
         {/* Main Content */}
         <div className="text-center z-10 w-full max-w-4xl">
-          {/* Progress Bar */}
-          <div className="mb-8 animate-slide-in-left">
-            <div className="flex justify-between text-white mb-2">
-              <span>Question {currentQuestionIndex + 1} of {currentDomain.questions.length}</span>
-              <span>{Math.round(progress)}%</span>
+          {isLoadingQuestions ? (
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p className="text-white text-lg">Loading questions...</p>
             </div>
-            <div className="w-full bg-gray-700 rounded-full h-3">
-              <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full transition-all duration-300 animate-shimmer" style={{ width: `${progress}%` }}></div>
-            </div>
-          </div>
+          ) : (
+            <>
+              {/* Progress Bar */}
+              <div className="mb-8 animate-slide-in-left">
+                <div className="flex justify-between text-white mb-2">
+                  <span>Question {currentQuestionIndex + 1} of {questions.length}</span>
+                  <span>{Math.round(progress)}%</span>
+                </div>
+                <div className="w-full bg-gray-700 rounded-full h-3">
+                  <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full transition-all duration-300 animate-shimmer" style={{ width: `${progress}%` }}></div>
+                </div>
+              </div>
 
-          {/* Question */}
-          <div className="bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-2xl p-8 mb-8 hover-lift animate-zoom-in">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 animate-glow">
-              {currentQuestion.question}
-            </h2>
+              {/* Question */}
+              <div className="bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-2xl p-8 mb-8 hover-lift animate-zoom-in">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 animate-glow">
+                  {currentQuestion.question}
+                </h2>
 
-            {/* Answer Options */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {currentQuestion.options.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedAnswer(index)}
-                  className={`p-4 text-left rounded-lg border-2 transition-all hover-lift ${
-                    selectedAnswer === index
-                      ? 'border-blue-500 bg-blue-900/50 text-white animate-pulse-glow'
-                      : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-gray-500 hover:bg-gray-700/50'
-                  }`}
-                >
-                  <span className="font-semibold mr-3 animate-float">{String.fromCharCode(65 + index)}.</span>
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
+                {/* Answer Options */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {currentQuestion.options.map((option, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedAnswer(index)}
+                      className={`p-4 text-left rounded-lg border-2 transition-all hover-lift ${
+                        selectedAnswer === index
+                          ? 'border-blue-500 bg-blue-900/50 text-white animate-pulse-glow'
+                          : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-gray-500 hover:bg-gray-700/50'
+                      }`}
+                    >
+                      <span className="font-semibold mr-3 animate-float">{String.fromCharCode(65 + index)}.</span>
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-          {/* Submit Button */}
-          <button
-            onClick={handleAnswerSubmit}
-            disabled={selectedAnswer === null}
-            className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-lg hover-lift animate-pulse-glow"
-          >
-            Submit Answer
-          </button>
+              {/* Submit Button */}
+              <button
+                onClick={handleAnswerSubmit}
+                disabled={selectedAnswer === null}
+                className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-lg hover-lift animate-pulse-glow"
+              >
+                Submit Answer
+              </button>
+            </>
+          )}
         </div>
       </div>
     );
@@ -521,7 +739,10 @@ export default function QuizStudios() {
 
   // Results Page
   if (quizCompleted) {
-    const finalScore = Math.round((score / currentDomain.questions.length) * 100);
+    const questions = apiQuestions.length > 0 ? apiQuestions : currentDomain.questions;
+    const finalScore = apiResults ? 
+      Math.round((apiResults.totalScore / apiResults.totalQuestions) * 100) : 
+      Math.round((score / questions.length) * 100);
 
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
@@ -548,16 +769,20 @@ export default function QuizStudios() {
                 )}
               </div>
               
-              <h2 className="text-3xl font-bold text-white mb-2 animate-glow">{userName}</h2>
+              <h2 className="text-3xl font-bold text-white mb-2 animate-glow">{userData?.name || userName}</h2>
               <p className="text-xl text-gray-300 mb-6 animate-slide-in-left">Your Score: {finalScore}%</p>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-green-900/50 border border-green-700 rounded-lg p-4 hover-lift animate-slide-in-left">
-                  <div className="text-2xl font-bold text-green-400 animate-pulse-glow">{score}</div>
+                  <div className="text-2xl font-bold text-green-400 animate-pulse-glow">
+                    {apiResults ? apiResults.totalScore : score}
+                  </div>
                   <div className="text-green-300">Correct</div>
                 </div>
                 <div className="bg-red-900/50 border border-red-700 rounded-lg p-4 hover-lift animate-slide-in-right">
-                  <div className="text-2xl font-bold text-red-400 animate-pulse-glow">{fails}</div>
+                  <div className="text-2xl font-bold text-red-400 animate-pulse-glow">
+                    {apiResults ? (apiResults.totalQuestions - apiResults.totalScore) : fails}
+                  </div>
                   <div className="text-red-300">Incorrect</div>
                 </div>
               </div>

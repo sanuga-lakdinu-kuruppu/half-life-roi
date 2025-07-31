@@ -893,9 +893,10 @@ function ChatbotModal({ isOpen, onClose }) {
     },
   ]);
   const [inputMessage, setInputMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = () => {
-    if (!inputMessage.trim()) return;
+  const handleSendMessage = async () => {
+    if (!inputMessage.trim() || isLoading) return;
 
     const userMessage = {
       id: messages.length + 1,
@@ -906,46 +907,53 @@ function ChatbotModal({ isOpen, onClose }) {
 
     setMessages([...messages, userMessage]);
     setInputMessage("");
+    setIsLoading(true);
 
-    // Simulate bot response
-    setTimeout(() => {
+    try {
+      // Call the RAG API
+      const response = await fetch(
+        "https://cru4fa4esf.execute-api.ap-southeast-1.amazonaws.com/dev/chatbot",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: [{ role: "system", content: inputMessage }],
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to get response from API");
+      }
+
+      const responseData = await response.json();
+
+      // Extract the actual response content from the data field
+      const botContent =
+        responseData.data || responseData.message || "No response received";
+
       const botResponse = {
         id: messages.length + 2,
         type: "bot",
-        content: getBotResponse(inputMessage),
+        content: botContent,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, botResponse]);
-    }, 1000);
-  };
-
-  const getBotResponse = (message) => {
-    const lowerMessage = message.toLowerCase();
-
-    if (lowerMessage.includes("quiz") || lowerMessage.includes("test")) {
-      return "We have interactive quizzes in various domains like Space Technology, Agriculture, Medical, and more! You can find them in the Quiz section.";
-    } else if (
-      lowerMessage.includes("calculator") ||
-      lowerMessage.includes("calculate")
-    ) {
-      return "Our calculator section provides tools for ROI analysis and half-life calculations. Check it out!";
-    } else if (
-      lowerMessage.includes("isotope") ||
-      lowerMessage.includes("nuclear")
-    ) {
-      return "Explore our Isotope Game to learn about nuclear physics and real-world applications in medicine, agriculture, and industry!";
-    } else if (
-      lowerMessage.includes("team") ||
-      lowerMessage.includes("about")
-    ) {
-      return "Our team consists of Computer Scientists, Economists, and a Nuclear Scientist working together on this project. Check out the About Us section!";
-    } else if (
-      lowerMessage.includes("help") ||
-      lowerMessage.includes("support")
-    ) {
-      return "I can help you navigate the site, explain features, or answer questions about Half Life ROI. What would you like to know?";
-    } else {
-      return "That's interesting! I can help you explore our features like quizzes, calculators, isotope games, and more. What would you like to learn about?";
+    } catch (error) {
+      console.error("Error calling chatbot API:", error);
+      // Fallback response if API fails
+      const botResponse = {
+        id: messages.length + 2,
+        type: "bot",
+        content:
+          "I'm sorry, I'm having trouble connecting right now. Please try again later or check out our interactive features like the mindmap, quizzes, and isotope game!",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, botResponse]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -1019,6 +1027,20 @@ function ChatbotModal({ isOpen, onClose }) {
               </div>
             </div>
           ))}
+
+          {/* Loading indicator */}
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="max-w-xs lg:max-w-md px-4 py-3 rounded-2xl bg-gray-800/80 text-gray-200 border border-gray-700">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin"></div>
+                  <span className="text-sm text-gray-300">
+                    AI is thinking...
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Input */}
@@ -1029,15 +1051,25 @@ function ChatbotModal({ isOpen, onClose }) {
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
-              className="flex-1 px-4 py-3 bg-gray-800/80 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+              placeholder={
+                isLoading ? "AI is thinking..." : "Type your message..."
+              }
+              disabled={isLoading}
+              className="flex-1 px-4 py-3 bg-gray-800/80 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               onClick={handleSendMessage}
-              disabled={!inputMessage.trim()}
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover-lift"
+              disabled={!inputMessage.trim() || isLoading}
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover-lift flex items-center gap-2"
             >
-              Send
+              {isLoading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <span>AI...</span>
+                </>
+              ) : (
+                "Send"
+              )}
             </button>
           </div>
         </div>
@@ -1157,14 +1189,7 @@ export default function Home() {
                 Videos
               </a>
             </li>
-            <li>
-              <a
-                href="#calculator"
-                className="px-4 py-1 rounded-full transition-colors duration-200 hover:bg-white/10 hover:text-white cursor-pointer block"
-              >
-                Calculator
-              </a>
-            </li>
+
             <li>
               <a
                 href="#aboutus"
@@ -1174,8 +1199,9 @@ export default function Home() {
               </a>
             </li>
           </ul>
-          {/* Create Account */}
-          <button className="ml-4 px-5 py-2 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition text-sm hidden md:block">
+
+          {/* Create Account Button */}
+          <button className="px-6 py-2 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition-colors duration-200 hover-lift">
             Create Account
           </button>
         </nav>
@@ -1529,36 +1555,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Calculator Section */}
-        <section
-          id="calculator"
-          className="w-full min-h-screen flex flex-col items-center justify-center scroll-mt-32"
-        >
-          <div className="text-center mb-12">
-            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent mb-4">
-              Precision Tools
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Advanced calculators for ROI analysis and half-life calculations
-              with real-time results
-            </p>
-            <div className="flex justify-center mt-4">
-              <span className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                ROI Calc
-              </span>
-              <span className="bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
-                Half-life
-              </span>
-              <span className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium ml-2">
-                Real-time
-              </span>
-            </div>
-          </div>
-          <div className="text-4xl text-gray-200 font-bold">
-            Calculator Section (placeholder)
-          </div>
-        </section>
-
         {/* About Us Section */}
         <section
           id="aboutus"
@@ -1805,30 +1801,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-          {/* Company Stats */}
-          <div className="mt-16 w-full max-w-4xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
-                  10K+
-                </div>
-                <div className="text-gray-400 text-sm">Total Users</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent mb-2">
-                  99.9%
-                </div>
-                <div className="text-gray-400 text-sm">Uptime</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent mb-2">
-                  24/7
-                </div>
-                <div className="text-gray-400 text-sm">Support</div>
-              </div>
-            </div>
-          </div>
         </section>
       </div>
 
@@ -1938,15 +1910,7 @@ export default function Home() {
                     Videos
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="#calculator"
-                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
-                  >
-                    <span className="w-1 h-1 bg-orange-500 rounded-full"></span>
-                    Calculator
-                  </a>
-                </li>
+
                 <li>
                   <a
                     href="#aboutus"
